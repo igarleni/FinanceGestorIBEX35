@@ -16,11 +16,11 @@ public class Opcion {
     public String Volumen;
     public String Ultimo;
     public String Compra_Vol;
-    public String Compra_Precio;
+    public String Compra_Precio; //precio al que se puede vender de esta opcion si se posee
     public String Venta_Vol;
-    public String Venta_Precio;
+    public String Venta_Precio; //precio para comprar esta opcion si se desea una (si, los conceptos son contrarios)
     public String Vencimiento;
-    public String Ejercicio;
+    public String Ejercicio; //precio asociado a la fecha de vencimiento (strike)
 }
 
 

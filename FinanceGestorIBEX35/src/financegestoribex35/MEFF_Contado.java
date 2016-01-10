@@ -26,13 +26,13 @@ public class MEFF_Contado {
     private final int ntrials=5;
     private final int timeout=1000; // 10 seconds
     
-    public String Spot;
-    public String Diferencia;
-    public String Anterior;
-    public String Maximo;
-    public String Minimo;
-    public String Fecha;
-    public String Hora;
+    public String Spot; //Precio subyacente/puntual del IBEX35, influye en las opciones
+    public String Diferencia; //Float
+    public String Anterior; //Float
+    public String Maximo; //Float
+    public String Minimo; //Float
+    public String Fecha; //DD/MM/AAAA
+    public String Hora; //--:--
     
     public MEFF_Contado(){  
     }
@@ -86,5 +86,18 @@ public class MEFF_Contado {
             }
         }
         return false;
+    }
+    
+    @Override
+    public String toString(){
+        String resultado = "||||||||Contado||||||||\n";
+        resultado += "Spot: "+ Spot +"\n";
+        resultado += "Diferencia: "+ Diferencia +"\n";
+        resultado += "Anterior: "+ Anterior +"\n";
+        resultado += "Maximo: "+ Maximo +"\n";
+        resultado += "Minimo: "+ Minimo +"\n";
+        resultado += "Fecha: "+ Fecha +"\n";
+        resultado += "Hora: "+ Hora;
+        return resultado;
     }
 }
