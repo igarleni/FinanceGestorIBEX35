@@ -5,7 +5,7 @@
  */
 package financegestoribex35;
 
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -15,9 +15,9 @@ public class OpcionCartera {
     
     public int Volumen;
     public String Tipo;
-    public Calendar Vencimiento;
+    public GregorianCalendar Vencimiento;
     public float Ejercicio; //precio asociado a la fecha de vencimiento (strike)
-    public Calendar FechaIncorporacionCartera;
+    public GregorianCalendar FechaIncorporacionCartera;
     public float PrecioDeCompra; //precio al que se compro esta opcion
     
     /**

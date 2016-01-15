@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -42,8 +44,8 @@ public class CarterasGestor {
     public CarterasGestor(){
         carteras = new ArrayList<>();
     }
-
-    //COMPROBAR SI OPCION FUERA DE FECHA
+    
+    //EJEMPLO: 3 PUT 20161231 3000.4 20160131 3000.5
     public String cargarCartera(File filePath) {
         FileReader f;
         try {
@@ -51,16 +53,20 @@ public class CarterasGestor {
             BufferedReader br = new BufferedReader(f);
             String linea;
             Cartera cartera = new Cartera(br.readLine(), filePath.getAbsolutePath());
+            boolean carteraEditada = false;
             while((linea = br.readLine()) != null){
-                char c = linea.charAt(0);
                 OpcionCartera opcionCartera = extraerDatosOpcion(linea);
-                cartera.addOpcion(opcionCartera);
+                if(opcionCartera.Vencimiento.after(new GregorianCalendar())){
+                    carteraEditada = true;
+                }else
+                    cartera.addOpcion(opcionCartera);
             }
             f.close();
             
             carteras.add(cartera);
-            
+            if(carteraEditada) guardarCartera(cartera.getNombre());
             return cartera.getNombre();
+            
         } catch (IOException ex) {
             return null;
         }
@@ -84,7 +90,7 @@ public class CarterasGestor {
                 
                 index++;
                 opcionCartera.Vencimiento.set(Integer.valueOf(linea.substring(index, index+4)),
-                    Integer.valueOf(linea.substring(index+4, index+6)),
+                    Integer.valueOf(linea.substring(index+4, index+6))-1,
                     Integer.valueOf(linea.substring(index+6, index+8)));
                 
                 index += 9;
@@ -95,14 +101,14 @@ public class CarterasGestor {
                 opcionCartera.Ejercicio = Float.valueOf(linea.substring(index, indexEnd));
                 index = indexEnd+1;
                 opcionCartera.FechaIncorporacionCartera.set(Integer.valueOf(linea.substring(index, index+4)),
-                    Integer.valueOf(linea.substring(index+4, index+6)),
+                    Integer.valueOf(linea.substring(index+4, index+6))-1,
                     Integer.valueOf(linea.substring(index+6, index+8)));
 
                 index += 9;
                 opcionCartera.PrecioDeCompra = Float.valueOf(linea.substring(index));
                 return opcionCartera;
     }
-    //ARREGLAR
+
     public boolean guardarCartera(String nombre){
         Cartera cartera;
         Integer i;
@@ -118,12 +124,12 @@ public class CarterasGestor {
 
             br.write(cartera.getNombre());
             for (OpcionCartera opcionCartera : opciones) {
-                br.write(opcionCartera.Volumen + " " +
+                br.write(String.valueOf(opcionCartera.Volumen) + " " +
                     opcionCartera.Tipo + " " +
-                    opcionCartera.Vencimiento + " " +
-                    opcionCartera.Ejercicio + " " +
-                    opcionCartera.FechaIncorporacionCartera + " " + 
-                    opcionCartera.PrecioDeCompra+ "\n");
+                    fechaToString(opcionCartera.Vencimiento) + " " +
+                    String.valueOf(opcionCartera.Ejercicio) + " " +
+                    fechaToString(opcionCartera.FechaIncorporacionCartera) + " " +
+                    String.valueOf(opcionCartera.PrecioDeCompra)+ "\n");
             }
             f.close();
             br.close();
@@ -132,36 +138,28 @@ public class CarterasGestor {
             return false;
         }
     }
-    //ARREGLAR
+
     public boolean guardarComoCartera(String nombre, String filePath){
         Cartera cartera;
         Integer i;
         if ((i = buscarCartera(nombre)) == null)
             return false;
-        cartera = carteras.get(i.intValue());
-        
-        cartera.setCarteraPath(filePath);
-        FileWriter f;
-        try {
-            f = new FileWriter(new File(cartera.getCarteraPath()));
-            BufferedWriter br = new BufferedWriter(f);
-            ArrayList<OpcionCartera> opciones = cartera.getOpciones();
-
-            br.write(cartera.getNombre());
-            for (OpcionCartera opcionCartera : opciones) {
-                br.write(opcionCartera.Volumen + " " +
-                    opcionCartera.Tipo + " " +
-                    opcionCartera.Vencimiento + " " +
-                    opcionCartera.Ejercicio + " " +
-                    opcionCartera.FechaIncorporacionCartera + " " + 
-                    opcionCartera.PrecioDeCompra+ "\n");
-            }
-            f.close();
-            br.close();
+        String oldCarteraPath = carteras.get(i.intValue()).getCarteraPath();
+        carteras.get(i.intValue()).setCarteraPath(filePath);
+        if (guardarCartera(nombre))
             return true;
-        } catch (IOException ex) {
+        else{
+            carteras.get(i.intValue()).setCarteraPath(oldCarteraPath);
             return false;
         }
+    }
+    
+    private String fechaToString(GregorianCalendar fecha) {
+        String resultado = "";
+        resultado += String.valueOf(fecha.get(Calendar.YEAR));
+        resultado += String.valueOf(fecha.get(Calendar.MONTH)+1);
+        resultado += String.valueOf(fecha.get(Calendar.DAY_OF_MONTH));
+        return resultado;
     }
     
     public void crearCartera(String nombre, String filePath){
@@ -195,5 +193,5 @@ public class CarterasGestor {
         carteras.remove(i.intValue());
         return true;
     }
-    
+
 }
