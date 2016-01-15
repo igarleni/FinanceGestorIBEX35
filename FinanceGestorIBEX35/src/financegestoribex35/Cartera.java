@@ -14,8 +14,14 @@ import java.util.ArrayList;
 public class Cartera {
     private final String nombre;
     private String carteraPath;
-    private ArrayList<OpcionCartera> opciones;
+    private final ArrayList<OpcionCartera> opciones;
 
+    public Cartera(String nombre, String filePath){
+        this.nombre = nombre;
+        this.carteraPath = filePath;
+        opciones = new ArrayList<>();
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -27,12 +33,6 @@ public class Cartera {
     public ArrayList<OpcionCartera> getOpciones() {
         return opciones;
     }
-    
-    public Cartera(String nombre, String filePath){
-        this.nombre = nombre;
-        this.carteraPath = filePath;
-        opciones = new ArrayList<>();
-    }
 
     public void setCarteraPath(String carteraPath) {
         this.carteraPath = carteraPath;
@@ -42,7 +42,4 @@ public class Cartera {
         opciones.add(opcion);
     }
     
-    public void deleteOpcionesFecha(String fecha){
-        //eliminar opciones con fecha pasada
-    }
 }

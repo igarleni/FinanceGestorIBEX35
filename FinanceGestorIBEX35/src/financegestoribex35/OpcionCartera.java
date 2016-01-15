@@ -5,16 +5,24 @@
  */
 package financegestoribex35;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Italo
  */
 public class OpcionCartera {
     
-    public String Volumen;
+    public int Volumen;
     public String Tipo;
-    public String Vencimiento;
-    public String Ejercicio; //precio asociado a la fecha de vencimiento (strike)
-    public String FechaIncorporacionCartera;
-    public String PrecioDeCompra; //precio al que se compro esta opcion
+    public Calendar Vencimiento;
+    public float Ejercicio; //precio asociado a la fecha de vencimiento (strike)
+    public Calendar FechaIncorporacionCartera;
+    public float PrecioDeCompra; //precio al que se compro esta opcion
+    
+    /**
+     * Al mostrar por pantalla, mostrar tambien
+     * --precio de venta actual (precio de compra en el mercado)
+     * --ganancia de valor (precio de compra mercado - precio comprado)
+     */
 }
