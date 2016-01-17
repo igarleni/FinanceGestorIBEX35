@@ -56,30 +56,18 @@ import java.util.ArrayList;
  * @author Italo
  */
 public class Cartera {
-    private final String nombre;
-    private String carteraPath;
-    private final ArrayList<OpcionCartera> opciones;
+    public final String nombre;
+    public String carteraPath;
+    
+    public float importeInvertido; //suma de los (precioCompra x volumen) de sus opciones
+    public float precioActual; //Suma de los precios actuales de sus opciones
+    public float ganancia; //importeInvertido - precioActual
+    public final ArrayList<OpcionCartera> opciones;
 
     public Cartera(String nombre, String filePath){
         this.nombre = nombre;
         this.carteraPath = filePath;
         opciones = new ArrayList<>();
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getCarteraPath() {
-        return carteraPath;
-    }
-
-    public ArrayList<OpcionCartera> getOpciones() {
-        return opciones;
-    }
-
-    public void setCarteraPath(String carteraPath) {
-        this.carteraPath = carteraPath;
     }
     
     public void addOpcion(OpcionCartera opcion){

@@ -37,13 +37,6 @@ public class MEFF_Contado {
     public MEFF_Contado(){  
     }
     
-    private Float toFloat(String texto){
-        
-        texto = texto.replace(".", "");
-        texto = texto.replace(",", ".");
-        return Float.valueOf(texto);
-    }
-    
     public boolean getSpot(){
          
         int trial = ntrials;

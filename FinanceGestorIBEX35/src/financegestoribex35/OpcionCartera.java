@@ -13,16 +13,16 @@ import java.util.GregorianCalendar;
  */
 public class OpcionCartera {
     
+    //Persistente en archivo
     public int Volumen;
     public String Tipo;
     public GregorianCalendar Vencimiento;
     public float Ejercicio; //precio asociado a la fecha de vencimiento (strike)
     public GregorianCalendar FechaIncorporacionCartera;
-    public float PrecioDeCompra; //precio al que se compro esta opcion
+    public float PrecioDeCompra; //precio al que se compro cada opcion(precio de venta del mercado) (1xVolumen)
     
-    /**
-     * Al mostrar por pantalla, mostrar tambien
-     * --precio de venta actual (precio de compra en el mercado)
-     * --ganancia de valor (precio de compra mercado - precio comprado)
-     */
+    //Actualizable
+    public float PrecioActual; //Precio de compra actual de la opcion
+    public float ganancia; //precio de compra mercado - precio comprado
+    
 }

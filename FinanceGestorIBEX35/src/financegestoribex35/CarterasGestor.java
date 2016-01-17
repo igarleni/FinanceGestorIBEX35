@@ -64,8 +64,8 @@ public class CarterasGestor {
             f.close();
             
             carteras.add(cartera);
-            if(carteraEditada) guardarCartera(cartera.getNombre());
-            return cartera.getNombre();
+            if(carteraEditada) guardarCartera(cartera.nombre);
+            return cartera.nombre;
             
         } catch (IOException ex) {
             return null;
@@ -118,11 +118,11 @@ public class CarterasGestor {
         
         FileWriter f;
         try {
-            f = new FileWriter(new File(cartera.getCarteraPath()));
+            f = new FileWriter(new File(cartera.carteraPath));
             BufferedWriter br = new BufferedWriter(f);
-            ArrayList<OpcionCartera> opciones = cartera.getOpciones();
+            ArrayList<OpcionCartera> opciones = cartera.opciones;
 
-            br.write(cartera.getNombre());
+            br.write(cartera.nombre);
             for (OpcionCartera opcionCartera : opciones) {
                 br.write(String.valueOf(opcionCartera.Volumen) + " " +
                     opcionCartera.Tipo + " " +
@@ -144,12 +144,12 @@ public class CarterasGestor {
         Integer i;
         if ((i = buscarCartera(nombre)) == null)
             return false;
-        String oldCarteraPath = carteras.get(i.intValue()).getCarteraPath();
-        carteras.get(i.intValue()).setCarteraPath(filePath);
+        String oldCarteraPath = carteras.get(i.intValue()).carteraPath;
+        carteras.get(i.intValue()).carteraPath =filePath ;
         if (guardarCartera(nombre))
             return true;
         else{
-            carteras.get(i.intValue()).setCarteraPath(oldCarteraPath);
+            carteras.get(i.intValue()).carteraPath = oldCarteraPath;
             return false;
         }
     }
@@ -169,7 +169,7 @@ public class CarterasGestor {
     
     public Integer buscarCartera(String nombre){
         for (Integer i = 0; i < carteras.size(); i++) {
-            if (carteras.get(i).getNombre().equals(nombre))
+            if (carteras.get(i).nombre.equals(nombre))
                 return i;
         }
         return null;
@@ -181,7 +181,7 @@ public class CarterasGestor {
         if ((i = buscarCartera(nombre)) == null)
             return false;
         cartera = carteras.get(i);
-        new File(cartera.getCarteraPath()).delete();
+        new File(cartera.carteraPath).delete();
         carteras.remove(i.intValue());
         return true;
     }
