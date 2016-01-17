@@ -22,10 +22,26 @@ public class Tools {
     }
     
     private static Float toFloat(String texto){
-        
         texto = texto.replace(".", "");
         texto = texto.replace(",", ".");
         return Float.valueOf(texto);
     }
     
+    private static String floatToString(Float numero){
+        String resultado = String.valueOf(numero);
+        int posPunto = resultado.indexOf(".");
+        int contador = 0;
+        for (int i = posPunto; i >= 0; i--) {
+            if (contador==3){
+                //añadir punto
+                contador = 0;
+            }
+            else
+                contador++;
+        }
+        if(resultado.charAt(0) == '.')
+            resultado = resultado.substring(1);
+        resultado = resultado.replace(".", ",");
+        return resultado;
+    }
 }
