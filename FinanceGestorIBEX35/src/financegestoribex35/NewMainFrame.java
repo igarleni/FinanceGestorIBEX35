@@ -5,12 +5,20 @@
  */
 package financegestoribex35;
 
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -39,6 +47,26 @@ public class NewMainFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenu();
         internalPane = new javax.swing.JPanel();
+        this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
+        setDate();
+        Timer timDate = new Timer(20000,new ActionListener(){ // 20 segundos
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                setDate();
+            }
+        });
+        timDate.start();
+        
+        CollectData();
+        Timer timData = new Timer(180000,new ActionListener(){ // 3 minutos
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                CollectData();
+            }
+        });
+        timData.start();
+        
+        
     }
 
     /**
@@ -59,20 +87,22 @@ public class NewMainFrame extends javax.swing.JFrame {
         ULPGC = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        TablaContado1 = new javax.swing.JTable();
+        TablaContado = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        TablaOpcionesPUT1 = new javax.swing.JTable();
+        TablaOpcionesPUT = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
+        comboBoxPut = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox4 = new javax.swing.JComboBox();
+        comboBoxCall = new javax.swing.JComboBox();
         jScrollPane8 = new javax.swing.JScrollPane();
-        TablaOpcionesCALL1 = new javax.swing.JTable();
+        TablaOpcionesCALL = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        TablaFuturos1 = new javax.swing.JTable();
+        TablaFuturos = new javax.swing.JTable();
         BarraMenu = new javax.swing.JMenuBar();
         menuCartera = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -116,7 +146,7 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contado/Spot", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        TablaContado1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaContado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null}
             },
@@ -139,8 +169,8 @@ public class NewMainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaContado1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane6.setViewportView(TablaContado1);
+        TablaContado.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane6.setViewportView(TablaContado);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -148,7 +178,7 @@ public class NewMainFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +192,7 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        TablaOpcionesPUT1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaOpcionesPUT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -189,31 +219,43 @@ public class NewMainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaOpcionesPUT1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane7.setViewportView(TablaOpcionesPUT1);
+        TablaOpcionesPUT.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TablaOpcionesPUT.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jScrollPane7.setViewportView(TablaOpcionesPUT);
 
         jLabel3.setText("Fecha de Vencimiento:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxPut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("Añadir");
+        jButton1.setToolTipText("Añadir opciones PUT a una cartera abierta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -221,9 +263,9 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones IBEX35 - CALL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxCall.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        TablaOpcionesCALL1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaOpcionesCALL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -250,37 +292,44 @@ public class NewMainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaOpcionesCALL1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane8.setViewportView(TablaOpcionesCALL1);
+        TablaOpcionesCALL.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TablaOpcionesCALL.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jScrollPane8.setViewportView(TablaOpcionesCALL);
 
         jLabel4.setText("Fecha de Vencimiento:");
+
+        jButton3.setText("Añadir");
+        jButton3.setToolTipText("Añadir opciones PUT a una cartera abierta");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(11, 11, 11)
+                    .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton3))
+                .addGap(9, 9, 9)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Futuros (MINI) IBEX35", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        TablaFuturos1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaFuturos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -306,9 +355,9 @@ public class NewMainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaFuturos1.setToolTipText("");
-        TablaFuturos1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane4.setViewportView(TablaFuturos1);
+        TablaFuturos.setToolTipText("");
+        TablaFuturos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane4.setViewportView(TablaFuturos);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -332,30 +381,30 @@ public class NewMainFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EscritorioLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 129, Short.MAX_VALUE)
-                        .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(51, 51, 51))
-                    .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))))
+                        .addGap(52, 52, 52))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
+                        .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(EscritorioLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(EscritorioLayout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))))
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(EscritorioLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(EscritorioLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,7 +427,7 @@ public class NewMainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jScrollPane5)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,12 +667,16 @@ public class NewMainFrame extends javax.swing.JFrame {
         internalPane.add(jTabbedPane1);
         internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
         internalFrame.add(jTabbedPane1);*/
-        Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);
+        //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -665,13 +718,15 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JTextField Fecha;
     private javax.swing.JLabel Institucion;
-    private javax.swing.JTable TablaContado1;
-    private javax.swing.JTable TablaFuturos1;
-    private javax.swing.JTable TablaOpcionesCALL1;
-    private javax.swing.JTable TablaOpcionesPUT1;
+    private javax.swing.JTable TablaContado;
+    private javax.swing.JTable TablaFuturos;
+    private javax.swing.JTable TablaOpcionesCALL;
+    private javax.swing.JTable TablaOpcionesPUT;
     private javax.swing.JLabel ULPGC;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox comboBoxCall;
+    private javax.swing.JComboBox comboBoxPut;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuItem jMenuItem1;
@@ -700,5 +755,131 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable13;
     private javax.swing.JPanel internalPane;
+    
+    private MEFF_Contado contado = new MEFF_Contado();
+    private MEFF_Futuros futuros = new MEFF_Futuros();
+    private MEFF_Opciones opciones = new MEFF_Opciones();
+
+private void setDate(){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH:mm ");
+        String formatedDate = sdf.format(date);
+        formatedDate = formatedDate.concat(" (local)");
+        Fecha.setText(formatedDate);
+    }
+
+private Float toFloat(String texto){
+        
+        texto = texto.replace(".", "");
+        texto = texto.replace(",", ".");
+        return Float.valueOf(texto);
+    }
+
+private void CollectData(){
+        
+        //Notificaciones.setText("Recolectando datos ....");   
+        
+        // actualiza la tabla de contado
+        contado.getSpot();
+        TableModel model = TablaContado.getModel();
+        TablaContado.setValueAt(contado.Spot, 0, 0);
+        //TablaContado.setValueAt(contado.Diferencia, 0, 1);
+        TablaContado.setValueAt(contado.Anterior, 0, 2);
+        TablaContado.setValueAt(contado.Maximo, 0, 3);
+        TablaContado.setValueAt(contado.Minimo, 0, 4);
+        TablaContado.setValueAt(contado.Fecha, 0, 5);
+        TablaContado.setValueAt(contado.Hora, 0, 6);
+        
+        Float diferencia = toFloat(contado.Diferencia);
+        if(diferencia > 0){
+            model.setValueAt("<html><font color='green'>"+diferencia+"</font></html>", 0, 1);
+        }
+        else if(diferencia < 0){
+             model.setValueAt("<html><font color='red'>"+diferencia+"</font></html>", 0, 1);   
+        }
+        else{
+            model.setValueAt("<html><font color='black'>"+diferencia+"</font></html>", 0, 1);
+        }
+        
+        // actualiza la tabla de FUTUROS
+        
+        futuros.getFutures();
+        int nfuturos = futuros.Futuros.size();
+        DefaultTableModel tablemodel = (DefaultTableModel)TablaFuturos.getModel();
+        tablemodel.setRowCount(nfuturos);
+       
+        
+        for(int i=0;i<nfuturos;i++){
+            Futuro f = futuros.Futuros.get(i);
+            TablaFuturos.setValueAt(f.Vencimiento, i, 0);
+            TablaFuturos.setValueAt(f.Compra_Vol, i, 1);
+            TablaFuturos.setValueAt(f.Compra_Precio, i, 2);
+            TablaFuturos.setValueAt(f.Venta_Precio, i, 3);
+            TablaFuturos.setValueAt(f.Venta_Vol, i, 4);
+            TablaFuturos.setValueAt(f.Ultimo, i, 5);
+            TablaFuturos.setValueAt(f.Volumen, i, 6);
+            TablaFuturos.setValueAt(f.Apertura, i, 7);
+            TablaFuturos.setValueAt(f.Maximo, i, 8);
+            TablaFuturos.setValueAt(f.Minimo, i, 9);
+            TablaFuturos.setValueAt(f.Anterior, i, 10);
+            TablaFuturos.setValueAt(f.Hora, i, 11);
+        }
+        //Notificaciones.setText("Datos disponibles");
+        
+        
+        opciones.getOptions();
+        int nOptions = opciones.Opciones.size();
+        for(int i=0;i<nOptions;i++){
+            Opcion opcion = opciones.Opciones.get(i);
+            
+            if(opcion.Tipo.equals("PUT")){
+            comboBoxPut.addItem(opcion.Vencimiento);
+            }
+            
+            if(opcion.Tipo.equals("CALL")){
+            comboBoxCall.addItem(opcion.Vencimiento);
+            }
+            
+        
+        }
+        
+        
+        
+        /*
+        for(int i=0;i<nOptions;i++){
+            Opcion opcion = opciones.Opciones.get(i);
+            
+            // actualiza la tabla de PUT
+            if(opcion.Tipo.equals("PUT")){
+            TablaOpcionesPUT.setValueAt(opcion.Vencimiento, i, 0);
+            TablaOpcionesPUT.setValueAt(opcion.Ejercicio, i, 1);
+            TablaOpcionesPUT.setValueAt(opcion.Hora, i, 2);
+            TablaOpcionesPUT.setValueAt(opcion.Volumen, i, 3);
+            TablaOpcionesPUT.setValueAt(opcion.Ultimo, i, 4);
+            TablaOpcionesPUT.setValueAt(opcion.Compra_Vol, i, 5);
+            TablaOpcionesPUT.setValueAt(opcion.Compra_Precio, i, 6);
+            TablaOpcionesPUT.setValueAt(opcion.Venta_Precio, i, 7);
+            TablaOpcionesPUT.setValueAt(opcion.Venta_Vol, i, 8);
+            }
+            
+            // actualiza la tabla de CALL
+            if(opcion.Tipo.equals("CALL")){
+            TablaOpcionesCALL.setValueAt(opcion.Vencimiento, i, 0);
+            TablaOpcionesCALL.setValueAt(opcion.Ejercicio, i, 1);
+            TablaOpcionesCALL.setValueAt(opcion.Hora, i, 2);
+            TablaOpcionesCALL.setValueAt(opcion.Volumen, i, 3);
+            TablaOpcionesCALL.setValueAt(opcion.Ultimo, i, 4);
+            TablaOpcionesCALL.setValueAt(opcion.Compra_Vol, i, 5);
+            TablaOpcionesCALL.setValueAt(opcion.Compra_Precio, i, 6);
+            TablaOpcionesCALL.setValueAt(opcion.Venta_Precio, i, 7);
+            TablaOpcionesCALL.setValueAt(opcion.Venta_Vol, i, 8);
+            }
+
+   
+        }
+        */
+        
+    }
+
 
 }
