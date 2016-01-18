@@ -9,6 +9,7 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -67,6 +68,22 @@ public class NewMainFrame extends javax.swing.JFrame {
         timData.start();
         
         
+        comboBoxPut.addActionListener (new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizaTablePUT();
+            }
+        });
+        
+        comboBoxCall.addActionListener (new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizaTableCALL();
+            }
+        });
+        
+
+        
     }
 
     /**
@@ -113,6 +130,8 @@ public class NewMainFrame extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        Fecha.setEditable(false);
 
         Escritorio.setBackground(new java.awt.Color(220, 239, 249));
         Escritorio.setToolTipText("");
@@ -190,8 +209,6 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones IBEX35 - PUT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-
         TablaOpcionesPUT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -225,8 +242,6 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Fecha de Vencimiento:");
 
-        comboBoxPut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton1.setText("Añadir");
         jButton1.setToolTipText("Añadir opciones PUT a una cartera abierta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +261,7 @@ public class NewMainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jScrollPane7)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,8 +277,6 @@ public class NewMainFrame extends javax.swing.JFrame {
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones IBEX35 - CALL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        comboBoxCall.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         TablaOpcionesCALL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -312,7 +325,7 @@ public class NewMainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,19 +395,15 @@ public class NewMainFrame extends javax.swing.JFrame {
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
-                        .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(EscritorioLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(EscritorioLayout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EscritorioLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(20, 20, 20))
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,7 +504,7 @@ public class NewMainFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        /*JInternalFrame internalFrame = new JInternalFrame("Internal Frame", true, true, true, true );
+        JInternalFrame internalFrame = new JInternalFrame("Internal Frame", true, true, true, true );
         internalFrame.setBounds(250, 400, 400, 250);                 
         JButton boton = new JButton("Soy un boton");
         boton.setVisible(true);
@@ -666,7 +675,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Cartera 4", jScrollPane20);
         internalPane.add(jTabbedPane1);
         internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
-        internalFrame.add(jTabbedPane1);*/
+        internalFrame.add(jTabbedPane1);
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -829,57 +838,96 @@ private void CollectData(){
         
         opciones.getOptions();
         int nOptions = opciones.Opciones.size();
+        ArrayList putVencimiento = new ArrayList();
+        ArrayList callVencimiento = new ArrayList();
+        
         for(int i=0;i<nOptions;i++){
-            Opcion opcion = opciones.Opciones.get(i);
             
+            Opcion opcion = opciones.Opciones.get(i);
             if(opcion.Tipo.equals("PUT")){
-            comboBoxPut.addItem(opcion.Vencimiento);
+                if(!putVencimiento.contains(opcion.Vencimiento)){
+                    putVencimiento.add(opcion.Vencimiento);
+                    comboBoxPut.addItem(opcion.Vencimiento);
+                }
             }
             
             if(opcion.Tipo.equals("CALL")){
-            comboBoxCall.addItem(opcion.Vencimiento);
+                if(!callVencimiento.contains(opcion.Vencimiento)){
+                    callVencimiento.add(opcion.Vencimiento);
+                    comboBoxCall.addItem(opcion.Vencimiento);
+                }
             }
-            
-        
         }
-        
-        
-        
-        /*
-        for(int i=0;i<nOptions;i++){
-            Opcion opcion = opciones.Opciones.get(i);
-            
-            // actualiza la tabla de PUT
-            if(opcion.Tipo.equals("PUT")){
-            TablaOpcionesPUT.setValueAt(opcion.Vencimiento, i, 0);
-            TablaOpcionesPUT.setValueAt(opcion.Ejercicio, i, 1);
-            TablaOpcionesPUT.setValueAt(opcion.Hora, i, 2);
-            TablaOpcionesPUT.setValueAt(opcion.Volumen, i, 3);
-            TablaOpcionesPUT.setValueAt(opcion.Ultimo, i, 4);
-            TablaOpcionesPUT.setValueAt(opcion.Compra_Vol, i, 5);
-            TablaOpcionesPUT.setValueAt(opcion.Compra_Precio, i, 6);
-            TablaOpcionesPUT.setValueAt(opcion.Venta_Precio, i, 7);
-            TablaOpcionesPUT.setValueAt(opcion.Venta_Vol, i, 8);
-            }
-            
-            // actualiza la tabla de CALL
-            if(opcion.Tipo.equals("CALL")){
-            TablaOpcionesCALL.setValueAt(opcion.Vencimiento, i, 0);
-            TablaOpcionesCALL.setValueAt(opcion.Ejercicio, i, 1);
-            TablaOpcionesCALL.setValueAt(opcion.Hora, i, 2);
-            TablaOpcionesCALL.setValueAt(opcion.Volumen, i, 3);
-            TablaOpcionesCALL.setValueAt(opcion.Ultimo, i, 4);
-            TablaOpcionesCALL.setValueAt(opcion.Compra_Vol, i, 5);
-            TablaOpcionesCALL.setValueAt(opcion.Compra_Precio, i, 6);
-            TablaOpcionesCALL.setValueAt(opcion.Venta_Precio, i, 7);
-            TablaOpcionesCALL.setValueAt(opcion.Venta_Vol, i, 8);
-            }
-
-   
-        }
-        */
+        comboBoxPut.setSelectedIndex(0);
+        comboBoxCall.setSelectedIndex(0);
+        actualizaTableCALL();
+        actualizaTablePUT();
         
     }
+private void actualizaTablePUT(){
+        opciones.getOptions();
+        int fila = 0;
+        DefaultTableModel tablemodel = (DefaultTableModel)TablaOpcionesPUT.getModel();
+        int nOptions = opciones.Opciones.size();
+        int nPutRows = 0;
+        Object selectedItem = comboBoxPut.getSelectedItem();
+        
+        for(int i=0;i<nOptions;i++){
+            Opcion opcion = opciones.Opciones.get(i);
+            if(opcion.Tipo.equals("PUT") && opcion.Vencimiento.equals(selectedItem)) nPutRows++;
+        
+        }
+        tablemodel.setRowCount(nPutRows);
+        for(int i=0;i<nOptions;i++){
+        
+        Opcion opcion = opciones.Opciones.get(i);
+        // actualiza la tabla de PUT
+        if(opcion.Tipo.equals("PUT") && opcion.Vencimiento.equals(selectedItem)){
+        TablaOpcionesPUT.setValueAt(opcion.Ejercicio, fila, 0);
+        TablaOpcionesPUT.setValueAt(opcion.Compra_Vol, fila, 1);
+        TablaOpcionesPUT.setValueAt(opcion.Compra_Precio, fila, 2);
+        TablaOpcionesPUT.setValueAt(opcion.Venta_Precio, fila, 3);
+        TablaOpcionesPUT.setValueAt(opcion.Venta_Vol, fila, 4);
+        TablaOpcionesPUT.setValueAt(opcion.Ultimo, fila, 5);
+        TablaOpcionesPUT.setValueAt(opcion.Volumen, fila, 6);
+        TablaOpcionesPUT.setValueAt(opcion.Hora, fila, 7);
+        fila++;
+        }
+    }
+}
+
+        
+public void actualizaTableCALL(){
+        opciones.getOptions();
+        int fila = 0;
+        DefaultTableModel tablemodel = (DefaultTableModel)TablaOpcionesCALL.getModel();
+        int nOptions = opciones.Opciones.size();
+        int nCallRows = 0;
+        Object selectedItem = comboBoxCall.getSelectedItem();
+        
+        for(int i=0;i<nOptions;i++){
+            Opcion opcion = opciones.Opciones.get(i);
+            if(opcion.Tipo.equals("CALL") && opcion.Vencimiento.equals(selectedItem)) nCallRows++;
+        
+        }
+        tablemodel.setRowCount(nCallRows);
+        for(int i=0;i<nOptions;i++){
+        
+        Opcion opcion = opciones.Opciones.get(i);
+        // actualiza la tabla de CALL
+        if(opcion.Tipo.equals("CALL") && opcion.Vencimiento.equals(selectedItem)){
+        TablaOpcionesCALL.setValueAt(opcion.Ejercicio, fila, 0);
+        TablaOpcionesCALL.setValueAt(opcion.Compra_Vol, fila, 1);
+        TablaOpcionesCALL.setValueAt(opcion.Compra_Precio, fila, 2);
+        TablaOpcionesCALL.setValueAt(opcion.Venta_Precio, fila, 3);
+        TablaOpcionesCALL.setValueAt(opcion.Venta_Vol, fila, 4);
+        TablaOpcionesCALL.setValueAt(opcion.Ultimo, fila, 5);
+        TablaOpcionesCALL.setValueAt(opcion.Volumen, fila, 6);
+        TablaOpcionesCALL.setValueAt(opcion.Hora, fila, 7);
+        fila++;
+        }
+    }
+} 
 
 
 }
