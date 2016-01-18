@@ -25,7 +25,8 @@ import javax.swing.table.TableModel;
  *
  * @author Rapsodia
  */
-public class NewMainFrame extends javax.swing.JFrame {
+public class NewMainFrame extends JFrame
+                               implements ActionListener{
 
     /**
      * Creates new form NewMainFrame
@@ -761,6 +762,11 @@ public void actualizaTableCALL(){
         }
     }
 } 
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 }
