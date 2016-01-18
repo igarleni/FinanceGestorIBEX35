@@ -30,7 +30,12 @@ public class Cartera {
         opciones.add(opcion);
     }
     
-    public void deleteOpcion(String Vencimiento, String Ejercicio){
-        
+    public void deleteOpcion(String vencimiento, String ejercicio){
+        for (int i = 0; i < opciones.size(); i++) {
+            if (opciones.get(i).Ejercicio.equals(ejercicio) && opciones.get(i).Vencimiento.equals(vencimiento)){
+                opciones.remove(i);
+                break;
+            }
+        }
     }
 }
