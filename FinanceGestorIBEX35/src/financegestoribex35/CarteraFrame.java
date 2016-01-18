@@ -5,13 +5,7 @@
  */
 package financegestoribex35;
 
-import static java.awt.image.ImageObserver.WIDTH;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-
-import java.awt.event.*;
-import java.awt.*;
 
 /**
  *
@@ -20,6 +14,16 @@ import java.awt.*;
 public class CarteraFrame extends JInternalFrame{
 static int openFrameCount = 0;
 static final int xOffset = 30, yOffset = 30;
+private javax.swing.JTabbedPane jTabbedPane1;
+private javax.swing.JScrollPane jScrollPane17;
+private javax.swing.JScrollPane jScrollPane18;
+private javax.swing.JScrollPane jScrollPane19;
+private javax.swing.JScrollPane jScrollPane20;
+private javax.swing.JTable jTable10;
+private javax.swing.JTable jTable11;
+private javax.swing.JTable jTable12;
+private javax.swing.JTable jTable13;
+private javax.swing.JPanel internalPane;
     
 public CarteraFrame() {
         super("" + ("NOMBRECARTERA"),
@@ -31,18 +35,28 @@ public CarteraFrame() {
     //...Then set the window size or call pack...
         
         
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTable10 = new javax.swing.JTable();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        jTable11 = new javax.swing.JTable();
+        jScrollPane19 = new javax.swing.JScrollPane();
+        jTable12 = new javax.swing.JTable();
+        jScrollPane20 = new javax.swing.JScrollPane();
+        jTable13 = new javax.swing.JTable();
+        internalPane = new javax.swing.JPanel();
+        
         
     //Set the window's location.
-    setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
+    //setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
 }
     
     
         
         
-    }
-    /*
     
-        internalFrame.setBounds(250, 400, 400, 250);                 
+    
+       /*           
         JButton boton = new JButton("Soy un boton");
         boton.setVisible(true);
         boton.setSize(100,45);
@@ -215,17 +229,5 @@ public CarteraFrame() {
         internalFrame.add(jTabbedPane1);
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);
     
- 
-protected void createFrame() {
-    MyInternalFrame frame = new MyInternalFrame();
-    frame.setVisible(true);
-    desktop.add(frame);
-    try {
-        frame.setSelected(true);
-    } catch (java.beans.PropertyVetoException e) {}
+    }*/
 }
-
-
-
-}
-*/

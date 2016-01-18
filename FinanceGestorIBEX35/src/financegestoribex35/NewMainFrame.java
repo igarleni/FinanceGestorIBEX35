@@ -34,22 +34,6 @@ public class NewMainFrame extends JFrame
     public NewMainFrame() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane17 = new javax.swing.JScrollPane();
-        jTable10 = new javax.swing.JTable();
-        jScrollPane18 = new javax.swing.JScrollPane();
-        jTable11 = new javax.swing.JTable();
-        jScrollPane19 = new javax.swing.JScrollPane();
-        jTable12 = new javax.swing.JTable();
-        jScrollPane20 = new javax.swing.JScrollPane();
-        jTable13 = new javax.swing.JTable();
-        BarraMenu = new javax.swing.JMenuBar();
-        menuCartera = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        menuExit = new javax.swing.JMenu();
-        internalPane = new javax.swing.JPanel();
-        this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
         setDate();
         Timer timDate = new Timer(20000,new ActionListener(){ // 20 segundos
             @Override
@@ -505,7 +489,9 @@ public class NewMainFrame extends JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        System.out.println("holi");
         CarteraFrame internalFrameCartera = new CarteraFrame();
+        internalFrameCartera.setBounds(22, 140, 650, 300); 
         internalFrameCartera.setVisible(true);
         Escritorio.add(internalFrameCartera);
     try {
