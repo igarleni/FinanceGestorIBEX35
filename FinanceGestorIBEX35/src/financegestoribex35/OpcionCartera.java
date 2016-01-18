@@ -13,6 +13,8 @@ import java.util.GregorianCalendar;
  */
 public class OpcionCartera {
     
+    //Clave primaria--> Ejercicio+Vencimiento
+    
     //Persistente en archivo
     public String Volumen;
     public String Tipo;

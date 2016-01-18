@@ -5,6 +5,9 @@
  */
 package financegestoribex35;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Italo
@@ -21,19 +24,22 @@ public class Tools {
         }
     }
     
-    private static Float toFloat(String texto){
+    public static Float StringToFloat(String texto){
         texto = texto.replace(".", "");
         texto = texto.replace(",", ".");
         return Float.valueOf(texto);
     }
     
-    private static String floatToString(Float numero){
+    public static String floatToString(Float numero){
         String resultado = String.valueOf(numero);
-        int posPunto = resultado.indexOf(".");
+        resultado = resultado.replace(".", ",");
+        int posPunto = resultado.indexOf(",");
+        if (posPunto == -1)
+            posPunto = resultado.length();
         int contador = 0;
-        for (int i = posPunto; i >= 0; i--) {
-            if (contador==3){
-                //añadir punto
+        for (int i = posPunto-1; i >= 0; i--) {
+            if (contador==2){
+                resultado = resultado.substring(0, i) + "." + resultado.substring(i, resultado.length());
                 contador = 0;
             }
             else
@@ -41,7 +47,22 @@ public class Tools {
         }
         if(resultado.charAt(0) == '.')
             resultado = resultado.substring(1);
-        resultado = resultado.replace(".", ",");
+        return resultado;
+    }
+    
+    public static boolean fechaVencida(String fecha){
+        GregorianCalendar fechaOpcion = new GregorianCalendar();
+        fechaOpcion.set(Integer.valueOf(fecha.substring(4, 8)),
+                    Integer.valueOf(fecha.substring(2, 4))-1,
+                    Integer.valueOf(fecha.substring(0, 2)));
+        return fechaOpcion.after(new GregorianCalendar());
+    }
+    
+    public static String getFechaActual(){
+        GregorianCalendar fechaActual = new GregorianCalendar();
+        String resultado = String.valueOf(fechaActual.get(Calendar.DAY_OF_MONTH));
+        resultado += String.valueOf(fechaActual.get(Calendar.MONTH)+1);
+        resultado += String.valueOf(fechaActual.get(Calendar.YEAR));
         return resultado;
     }
 }

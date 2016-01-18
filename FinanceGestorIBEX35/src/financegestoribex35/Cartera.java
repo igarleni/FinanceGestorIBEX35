@@ -29,4 +29,8 @@ public class Cartera {
     public void addOpcion(OpcionCartera opcion){
         opciones.add(opcion);
     }
+    
+    public void deleteOpcion(String Vencimiento, String Ejercicio){
+        
+    }
 }

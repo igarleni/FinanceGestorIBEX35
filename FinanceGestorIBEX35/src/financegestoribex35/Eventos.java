@@ -35,47 +35,72 @@ public class Eventos {
             String nombre = carterasGestor.cargarCartera(file);
             Cartera cartera = carterasGestor.carteras.get(carterasGestor.buscarCartera(nombre));
             ///////////////////////AÑADIR AQUI EL CODIGO PARA CREAR LA VENTANA CON CARTERA
+            /**
+             * añadir nueva ventana "carteraFrame" con esta cartera
+             * actualizar el JComboBox de las opciones para añadir la nueva cartera
+             */
         }
     }
     
     //Cerrar ventana cartera
     //Lanza una ventanita de si quieres guardar (hay que crearla con sus botones
-    Component ventanaGuardar;
+    String nombreCartera; //Tiene que ser una variable global del jFrame "carteraFrame"
     public void cerrarVentanaCartera(){
-        carterasGestor.cerrarCartera(cartera.nombre);
+        carterasGestor.cerrarCartera(nombreCartera);
+        /////////////////////////quitar esta cartera de los JComboBox de las opciones
     }
     
     //Se lanza cuando se actualizan los datos MEFF
     //Se actualizan datos de la cartera y de las opciones
     public void actualizarCarteras(){
-        
+        for (Cartera cartera : carterasGestor.carteras) {
+            for (OpcionCartera opcion : cartera.opciones) {
+                
+            }
+        }
+    }
+    
+    public void actualizarCartera(String nombre){
+        int index = carterasGestor.buscarCartera(nombre);
+        //actualizar a raiz del SPOT?
     }
     
     //Boton añadir opcion a cartera
     //tiene que actualizar los datos variables de la cartera
-    JTable listaOpcionesPUT;
-    JComboBox Vencimiento;
+    JTable listaOpciones; //PUT O CALL, depende de donde esté el boton de este event, y asi con todas
+    JComboBox vencimientoBox;
     JTextField VolumenCompra;
-    public void botonAddOpcionPUT(){
+    JComboBox carteraBox;
+    //PARA CALL Y PUT, CAMBIAR VARIABLE TIPO
+    public void botonAddOpcion(){
         if (Tools.esFloat(VolumenCompra.getText())){
-            int seleccionado = listaOpcionesPUT.getSelectedRow();
+            int seleccionado = listaOpciones.getSelectedRow();
+            String nombreCartera = (String) carteraBox.getSelectedItem();
+            
             //Añadir al arraylist
             OpcionCartera opcion = new OpcionCartera();
-            opcion.Tipo = "PUT";
-            opcion.Hora;
-            opcion.Volumen = VolumenCompra;
-            opcion.Ultimo;
-            opcion.Compra_Vol;
-            opcion.Compra_Precio; //precio al que se puede vender de esta opcion si se posee
-            opcion.Venta_Vol;
-            opcion.Venta_Precio; //precio para comprar esta opcion si se desea una (si, los conceptos son contrarios)
-            opcion.Vencimiento;
-            opcion.Ejercicio;
+            opcion.Tipo = "PUT"; //"CALL" SI ES EL CASO DE OPCIONES CALL
+            opcion.Ejercicio = (String)listaOpciones.getValueAt(0, seleccionado);
+            opcion.PrecioDeCompra = (String)listaOpciones.getValueAt(3, seleccionado);
+            opcion.Vencimiento = (String)vencimientoBox.getSelectedItem();
+            opcion.FechaIncorporacionCartera = Tools.getFechaActual(); 
+
+            opcion.PrecioActual = (String)listaOpciones.getValueAt(2, seleccionado);
+            opcion.ganancia = Tools.floatToString(Tools.StringToFloat(opcion.PrecioDeCompra)-Tools.StringToFloat(opcion.PrecioActual));
+            carterasGestor.carteras.get(carterasGestor.buscarCartera(nombreCartera)).addOpcion(opcion);
+            
+            //Actualizar los datos generales de la cartera 
+            carterasGestor.carteras.get(carterasGestor.buscarCartera(nombreCartera)).ganancia += Tools.StringToFloat(opcion.ganancia);
+            carterasGestor.carteras.get(carterasGestor.buscarCartera(nombreCartera)).importeInvertido += Tools.StringToFloat(opcion.PrecioDeCompra);
+            carterasGestor.carteras.get(carterasGestor.buscarCartera(nombreCartera)).precioActual += Tools.StringToFloat(opcion.PrecioActual);
             /////////////////////////////Actualizar la ventana cartera??
         }
     }
     
+    JTable ListaOpciones; //Tabla de la lista de opciones de la cartera
     public void botonDeleteOpcion(){
+        int seleccionado = ListaOpciones.getSelectedRow();
+        carterasGestor.carteras.get(carterasGestor.buscarCartera(nombreCartera)).deleteOpcion(nombreCartera, nombreCartera); //nombreCartera es variable globalr del "carteraFrame"
         
     }
     
