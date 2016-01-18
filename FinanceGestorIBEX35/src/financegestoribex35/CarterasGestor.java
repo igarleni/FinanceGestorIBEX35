@@ -56,7 +56,7 @@ public class CarterasGestor {
             boolean carteraEditada = false;
             while((linea = br.readLine()) != null){
                 OpcionCartera opcionCartera = extraerDatosOpcion(linea);
-                if(opcionCartera.Vencimiento.after(new GregorianCalendar())){
+                if(Tools.fechaVencida(opcionCartera.Vencimiento)){
                     carteraEditada = true;
                 }else
                     cartera.addOpcion(opcionCartera);
@@ -79,7 +79,7 @@ public class CarterasGestor {
                 while(linea.charAt(index) != ' '){
                     index++;
                 }
-                opcionCartera.Volumen = Integer.valueOf(linea.substring(0, index));
+                opcionCartera.Volumen = linea.substring(0, index);
                 
                 index++;
                 opcionCartera.Tipo = "";
@@ -89,23 +89,20 @@ public class CarterasGestor {
                 }
                 
                 index++;
-                opcionCartera.Vencimiento.set(Integer.valueOf(linea.substring(index, index+4)),
-                    Integer.valueOf(linea.substring(index+4, index+6))-1,
-                    Integer.valueOf(linea.substring(index+6, index+8)));
+                opcionCartera.Vencimiento = linea.substring(index,index+8);
                 
                 index += 9;
-                int indexEnd = index;
-                while(linea.charAt(indexEnd) != ' '){
-                    indexEnd++;
+                opcionCartera.Ejercicio = "";
+                while(linea.charAt(index) != ' '){
+                    opcionCartera.Ejercicio += linea.charAt(index);
+                    index++;
                 }
-                opcionCartera.Ejercicio = Float.valueOf(linea.substring(index, indexEnd));
-                index = indexEnd+1;
-                opcionCartera.FechaIncorporacionCartera.set(Integer.valueOf(linea.substring(index, index+4)),
-                    Integer.valueOf(linea.substring(index+4, index+6))-1,
-                    Integer.valueOf(linea.substring(index+6, index+8)));
+                
+                index++;
+                opcionCartera.FechaIncorporacionCartera = linea.substring(index, index+8);
 
                 index += 9;
-                opcionCartera.PrecioDeCompra = Float.valueOf(linea.substring(index));
+                opcionCartera.PrecioDeCompra = linea.substring(index);
                 return opcionCartera;
     }
 
@@ -126,10 +123,10 @@ public class CarterasGestor {
             for (OpcionCartera opcionCartera : opciones) {
                 br.write(String.valueOf(opcionCartera.Volumen) + " " +
                     opcionCartera.Tipo + " " +
-                    fechaToString(opcionCartera.Vencimiento) + " " +
-                    String.valueOf(opcionCartera.Ejercicio) + " " +
-                    fechaToString(opcionCartera.FechaIncorporacionCartera) + " " +
-                    String.valueOf(opcionCartera.PrecioDeCompra)+ "\n");
+                    opcionCartera.Vencimiento + " " +
+                    opcionCartera.Ejercicio + " " +
+                    opcionCartera.FechaIncorporacionCartera + " " +
+                    opcionCartera.PrecioDeCompra+ "\n");
             }
             f.close();
             br.close();
@@ -152,14 +149,6 @@ public class CarterasGestor {
             carteras.get(i.intValue()).carteraPath = oldCarteraPath;
             return false;
         }
-    }
-    
-    private String fechaToString(GregorianCalendar fecha) {
-        String resultado = "";
-        resultado += String.valueOf(fecha.get(Calendar.YEAR));
-        resultado += String.valueOf(fecha.get(Calendar.MONTH)+1);
-        resultado += String.valueOf(fecha.get(Calendar.DAY_OF_MONTH));
-        return resultado;
     }
     
     public void crearCartera(String nombre, String filePath){
