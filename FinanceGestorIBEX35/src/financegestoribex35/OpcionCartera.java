@@ -16,15 +16,15 @@ public class OpcionCartera {
     //Clave primaria--> Ejercicio+Vencimiento
     
     //Persistente en archivo
-    public String Volumen;
-    public String Tipo;
-    public String Vencimiento;
-    public String Ejercicio; //precio asociado a la fecha de vencimiento (strike)
-    public String FechaIncorporacionCartera;
-    public String PrecioDeCompra; //precio al que se compro cada opcion(precio de venta del mercado) (1xVolumen)
+    public String Volumen = "-";
+    public String Tipo = "-";
+    public String Vencimiento = "-";
+    public String Ejercicio = "-"; //precio asociado a la fecha de vencimiento (strike)
+    public String FechaIncorporacionCartera = "-";
+    public String PrecioDeCompra = "-"; //precio al que se compro cada opcion(precio de venta del mercado) (1xVolumen)
     
     //Actualizable
-    public String PrecioActual; //Precio de compra actual de la opcion
-    public String ganancia; //precio de compra mercado - precio comprado
+    public String PrecioActual = "-"; //Precio de compra actual de la opcion
+    public String ganancia = "-"; //precio de compra mercado - precio comprado
     
 }

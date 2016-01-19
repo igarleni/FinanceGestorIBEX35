@@ -6,11 +6,17 @@
 package financegestoribex35;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 /**
  *
@@ -18,11 +24,14 @@ import javax.swing.JTextField;
  */
 public class Eventos {
     CarterasGestor carterasGestor = new CarterasGestor();
+    private List<JInternalFrame> frameList=new ArrayList<>();
     Cartera cartera = new Cartera("prueba", "prueba");
     
     //Archivo --> Abrir Cartera..
     //Carga la cartera y calcula los datos variables, luego se lo pasa al jFrame "carteraFrame"
     Component Open; ////////////Variable donde esta guardada el boton open
+    JComboBox carteraBoxPUT; //CALL Y PUT
+    JComboBox carteraBoxCALL; //CALL Y PUT
     public void abrirCartera(){
         JFileChooser filechooser = new JFileChooser();
         filechooser.setCurrentDirectory(null);
@@ -32,14 +41,37 @@ public class Eventos {
         
         if (retorno == JFileChooser.APPROVE_OPTION){
             File file = filechooser.getSelectedFile();
-            String nombre = carterasGestor.cargarCartera(file);
-            Cartera cartera = carterasGestor.carteras.get(carterasGestor.buscarCartera(nombre));
-            ///////////////////////AÑADIR AQUI EL CODIGO PARA CREAR LA VENTANA CON CARTERA
-            /**
-             * añadir nueva ventana "carteraFrame" con esta cartera
-             * actualizar el JComboBox de las opciones para añadir la nueva cartera
-             */
+            Cartera cartera = carterasGestor.cargarCartera(file);
+            //añadir nueva ventana "carteraFrame" con esta cartera
+            CarteraFrame carteraFrame = new CarteraFrame(cartera);
+            carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e){
+                    frameList.remove(e.getInternalFrame());
+                }
+            });
+            carteraFrame.show();
+            ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
+            //añadirlo al JComboBox
+            carteraBoxPUT.addItem(cartera.nombre);
+            carteraBoxCALL.addItem(cartera.nombre);
+            
         }
+    }
+    
+    private void createCarteraFrame(Cartera cartera){
+        CarteraFrame carteraFrame = new CarteraFrame(cartera);
+        carteraFrame.setSize(new Dimension(240, 300));       
+        carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+            @Override
+            public void internalFrameClosing(InternalFrameEvent e){             
+                frameList.remove(e.getInternalFrame());                 
+                System.out.println("from frame closing event");         
+            }
+        });
+        jif.show();
+        return jif;
+        
     }
     
     //Cerrar ventana cartera
@@ -60,17 +92,16 @@ public class Eventos {
         }
     }
     
+    ///////////////////funcion propia de CarteraFrame
     public void actualizarCartera(String nombre){
-        int index = carterasGestor.buscarCartera(nombre);
         ///////////////////////////actualizar a raiz del SPOT?
     }
     
     //Boton añadir opcion a cartera
     //tiene que actualizar los datos variables de la cartera
     JTable listaOpciones; //PUT O CALL, depende de donde esté el boton de este event, y asi con todas
-    JComboBox vencimientoBox;
     JTextField VolumenCompra;
-    JComboBox carteraBox;
+    JComboBox vencimientoBox;
     ////////////////////PARA CALL Y PUT, CAMBIAR VARIABLE TIPO
     public void botonAddOpcion(){
         if (Tools.esFloat(VolumenCompra.getText())){

@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *
@@ -39,14 +37,11 @@ public class CarterasGestor {
      * 7.-CerrarCartera(nombreCartera): quita la cartera del ArrayList pero borrar el archivo
      */
     
-    public ArrayList<Cartera> carteras; //mesa de trabajo
-    
     public CarterasGestor(){
-        carteras = new ArrayList<>();
     }
     
     //EJEMPLO: 3 PUT 20161231 3000.4 20160131 3000.5
-    public String cargarCartera(File filePath) {
+    public Cartera cargarCartera(File filePath) {
         FileReader f;
         try {
             f = new FileReader(filePath.getAbsolutePath());
@@ -62,10 +57,8 @@ public class CarterasGestor {
                     cartera.addOpcion(opcionCartera);
             }
             f.close();
-            
-            carteras.add(cartera);
-            if(carteraEditada) guardarCartera(cartera.nombre);
-            return cartera.nombre;
+            if(carteraEditada) guardarCartera(cartera);
+            return cartera;
             
         } catch (IOException ex) {
             return null;
@@ -106,13 +99,7 @@ public class CarterasGestor {
                 return opcionCartera;
     }
 
-    public boolean guardarCartera(String nombre){
-        Cartera cartera;
-        Integer i;
-        if ((i = buscarCartera(nombre)) == null)
-            return false;
-        cartera = carteras.get(i.intValue());
-        
+    public boolean guardarCartera(Cartera cartera){
         FileWriter f;
         try {
             f = new FileWriter(new File(cartera.carteraPath));
@@ -136,51 +123,27 @@ public class CarterasGestor {
         }
     }
 
-    public boolean guardarComoCartera(String nombre, String filePath){
-        Cartera cartera;
+    public boolean guardarComoCartera(Cartera cartera, String filePath){
         Integer i;
-        if ((i = buscarCartera(nombre)) == null)
-            return false;
-        String oldCarteraPath = carteras.get(i.intValue()).carteraPath;
-        carteras.get(i.intValue()).carteraPath =filePath ;
-        if (guardarCartera(nombre))
+        String oldCarteraPath = cartera.carteraPath;
+        cartera.carteraPath =filePath ;
+        if (guardarCartera(cartera))
             return true;
         else{
-            carteras.get(i.intValue()).carteraPath = oldCarteraPath;
+            cartera.carteraPath = oldCarteraPath;
             return false;
         }
     }
     
-    public void crearCartera(String nombre, String filePath){
+    public Cartera crearCartera(String nombre, String filePath){
         Cartera cartera = new Cartera(nombre, filePath);
-        carteras.add(cartera);
+        return cartera;
     }
     
-    public Integer buscarCartera(String nombre){
-        for (Integer i = 0; i < carteras.size(); i++) {
-            if (carteras.get(i).nombre.equals(nombre))
-                return i;
-        }
-        return null;
-    }
-    
-    public boolean eliminarCartera(String nombre){
-        Cartera cartera;
-        Integer i;
-        if ((i = buscarCartera(nombre)) == null)
-            return false;
-        cartera = carteras.get(i);
+    public boolean eliminarCartera(){
+        Cartera cartera = new Cartera("prueba", "prueba"); //Esta variable será la cartera del "carteraFrame"
         new File(cartera.carteraPath).delete();
-        carteras.remove(i.intValue());
         return true;
     }
     
-    public boolean cerrarCartera(String nombre){
-        Integer i;
-        if ((i = buscarCartera(nombre)) == null)
-            return false;
-        carteras.remove(i.intValue());
-        return true;
-    }
-
 }
