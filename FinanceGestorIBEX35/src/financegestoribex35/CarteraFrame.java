@@ -23,7 +23,7 @@ static final int xOffset = 30, yOffset = 30;
 private javax.swing.JTable jTable10;
 private javax.swing.JPanel internalPane;
     
-public CarteraFrame() {
+public CarteraFrame(Cartera cartera) {
         super("" + ("NOMBRECARTERA"),
           true, //resizable
           true, //closable
@@ -85,6 +85,11 @@ public CarteraFrame() {
         internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
         this.add(internalPane);
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);
+    
+    }
+
+    public void actualizarCartera(){
+    
     
     }
 }

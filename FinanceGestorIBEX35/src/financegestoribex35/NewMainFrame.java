@@ -5,19 +5,26 @@
  */
 package financegestoribex35;
 
+import java.awt.Component;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 import javax.swing.Timer;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -27,11 +34,11 @@ import javax.swing.table.TableModel;
  */
 public class NewMainFrame extends JFrame
                                implements ActionListener{
-
     /**
      * Creates new form NewMainFrame
      */
     public NewMainFrame() {
+        this.frameList = new ArrayList<>();
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
         setDate();
@@ -80,6 +87,8 @@ public class NewMainFrame extends JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Fecha = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -96,20 +105,42 @@ public class NewMainFrame extends JFrame
         jLabel3 = new javax.swing.JLabel();
         comboBoxPut = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        opcionesBoxPUT = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         comboBoxCall = new javax.swing.JComboBox();
         jScrollPane8 = new javax.swing.JScrollPane();
         TablaOpcionesCALL = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        opcionesBoxCALL = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaFuturos = new javax.swing.JTable();
         BarraMenu = new javax.swing.JMenuBar();
         menuCartera = new javax.swing.JMenu();
+        Abrir = new javax.swing.JMenuItem();
+        Crear = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenu();
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jLabel1)
+                .addContainerGap(298, Short.MAX_VALUE))
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel1)
+                .addContainerGap(223, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -242,11 +273,13 @@ public class NewMainFrame extends JFrame
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane7)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +288,8 @@ public class NewMainFrame extends JFrame
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -304,8 +338,10 @@ public class NewMainFrame extends JFrame
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -319,7 +355,8 @@ public class NewMainFrame extends JFrame
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -436,21 +473,24 @@ public class NewMainFrame extends JFrame
 
         menuCartera.setText("Cartera");
 
-        jMenuItem1.setText("Abrir");
-        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Abrir.setText("Abrir");
+        Abrir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseClicked(evt);
+                AbrirMouseClicked(evt);
             }
         });
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        Abrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                AbrirActionPerformed(evt);
             }
         });
-        menuCartera.add(jMenuItem1);
+        menuCartera.add(Abrir);
 
-        jMenuItem2.setText("Crear");
-        menuCartera.add(jMenuItem2);
+        Crear.setText("Crear");
+        menuCartera.add(Crear);
+
+        jMenuItem1.setText("jMenuItem1");
+        menuCartera.add(jMenuItem1);
 
         BarraMenu.add(menuCartera);
 
@@ -487,21 +527,45 @@ public class NewMainFrame extends JFrame
         System.exit(0);
     }//GEN-LAST:event_menuExitMenuSelected
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActionPerformed
         // TODO add your handling code here:
-        System.out.println("holi");
-        CarteraFrame internalFrameCartera = new CarteraFrame();
-        internalFrameCartera.setBounds(22, 140, 650, 300); 
-        internalFrameCartera.setVisible(true);
-        Escritorio.add(internalFrameCartera);
-    try {
-        internalFrameCartera.setSelected(true);
-    } catch (java.beans.PropertyVetoException e) {}
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setCurrentDirectory(null);
+        filechooser.addChoosableFileFilter(new TxtFilter());
+        JComboBox carteraBoxPUT; //CALL Y PUT
+        JComboBox carteraBoxCALL; //CALL Y PUT
+        
+        int retorno = filechooser.showOpenDialog(Abrir);
+        
+        if (retorno == JFileChooser.APPROVE_OPTION){
+            File file = filechooser.getSelectedFile();
+            Cartera cartera = carterasGestor.cargarCartera(file);
+            //añadir nueva ventana "carteraFrame" con esta cartera
+            CarteraFrame carteraFrame = new CarteraFrame(cartera);
+            carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e){
+                    frameList.remove(e.getInternalFrame());
+                }
+            });
+            ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
+            carteraFrame.setBounds(22, 140, 650, 300); 
+            carteraFrame.setVisible(true);
+            frameList.add(carteraFrame);
+            Escritorio.add(carteraFrame);
+            try {
+                carteraFrame.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {}
+            //añadirlo al JComboBox
+            opcionesBoxPUT.addItem(cartera.nombre);
+            opcionesBoxCALL.addItem(cartera.nombre);
+            
+        }
+    }//GEN-LAST:event_AbrirActionPerformed
 
-    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+    private void AbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AbrirMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1MouseClicked
+    }//GEN-LAST:event_AbrirMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -543,7 +607,9 @@ public class NewMainFrame extends JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Abrir;
     private javax.swing.JMenuBar BarraMenu;
+    private javax.swing.JMenuItem Crear;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JTextField Fecha;
     private javax.swing.JLabel Institucion;
@@ -556,10 +622,11 @@ public class NewMainFrame extends JFrame
     private javax.swing.JComboBox comboBoxPut;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -573,17 +640,14 @@ public class NewMainFrame extends JFrame
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JMenu menuCartera;
     private javax.swing.JMenu menuExit;
+    private javax.swing.JComboBox opcionesBoxCALL;
+    private javax.swing.JComboBox opcionesBoxPUT;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
-    private javax.swing.JScrollPane jScrollPane19;
-    private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable11;
-    private javax.swing.JTable jTable12;
-    private javax.swing.JTable jTable13;
     private javax.swing.JPanel internalPane;
+    CarterasGestor carterasGestor = new CarterasGestor();
+    private List<CarteraFrame> frameList;
+    
     
     private MEFF_Contado contado = new MEFF_Contado();
     private MEFF_Futuros futuros = new MEFF_Futuros();
