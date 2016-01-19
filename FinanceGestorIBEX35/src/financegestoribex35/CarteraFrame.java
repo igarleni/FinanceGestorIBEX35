@@ -6,11 +6,8 @@
 package financegestoribex35;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-import java.awt.event.*;
-import java.awt.*;
 import javax.swing.BoxLayout;
 
 /**

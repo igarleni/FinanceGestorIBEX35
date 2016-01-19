@@ -137,6 +137,7 @@ public class CarterasGestor {
     
     public Cartera crearCartera(String nombre, String filePath){
         Cartera cartera = new Cartera(nombre, filePath);
+        guardarCartera(cartera);
         return cartera;
     }
     

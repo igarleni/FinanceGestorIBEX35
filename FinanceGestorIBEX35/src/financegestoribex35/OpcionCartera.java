@@ -23,8 +23,5 @@ public class OpcionCartera {
     public String FechaIncorporacionCartera = "-";
     public String PrecioDeCompra = "-"; //precio al que se compro cada opcion(precio de venta del mercado) (1xVolumen)
     
-    //Actualizable
-    public String PrecioActual = "-"; //Precio de compra actual de la opcion
-    public String ganancia = "-"; //precio de compra mercado - precio comprado
     
 }

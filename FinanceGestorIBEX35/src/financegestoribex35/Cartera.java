@@ -16,8 +16,6 @@ public class Cartera {
     public String carteraPath;
     
     public float importeInvertido; //suma de los (precioCompra x volumen) de sus opciones
-    public float precioActual; //Suma de los precios actuales de sus opciones
-    public float ganancia; //importeInvertido - precioActual
     public final ArrayList<OpcionCartera> opciones;
 
     public Cartera(String nombre, String filePath){
@@ -27,15 +25,18 @@ public class Cartera {
     }
     
     public void addOpcion(OpcionCartera opcion){
+        importeInvertido += Tools.StringToFloat(opcion.PrecioDeCompra);
         opciones.add(opcion);
     }
     
-    public void deleteOpcion(String vencimiento, String ejercicio){
+    public OpcionCartera deleteOpcion(String vencimiento, String ejercicio){
         for (int i = 0; i < opciones.size(); i++) {
             if (opciones.get(i).Ejercicio.equals(ejercicio) && opciones.get(i).Vencimiento.equals(vencimiento)){
-                opciones.remove(i);
-                break;
+                OpcionCartera opcion = opciones.get(i);
+                importeInvertido -= Tools.StringToFloat(opcion.PrecioDeCompra);
+                return opciones.remove(i);
             }
         }
+        return null;
     }
 }
