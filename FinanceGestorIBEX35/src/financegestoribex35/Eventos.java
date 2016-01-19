@@ -28,10 +28,10 @@ public class Eventos {
     Cartera cartera = new Cartera("prueba", "prueba");
     
     //Archivo --> Abrir Cartera..
-    //Carga la cartera y calcula los datos variables, luego se lo pasa al jFrame "carteraFrame"
+    //Carga la cartera, calcula datos variables y añade la ventana al escritorio
     Component Open; ////////////Variable donde esta guardada el boton open
-    JComboBox carteraBoxPUT; //CALL Y PUT
-    JComboBox carteraBoxCALL; //CALL Y PUT
+    JComboBox opcionesBoxPUT; //CALL Y PUT
+    JComboBox opcionesBoxCALL; //CALL Y PUT
     public void abrirCartera(){
         JFileChooser filechooser = new JFileChooser();
         filechooser.setCurrentDirectory(null);
@@ -48,38 +48,26 @@ public class Eventos {
                 @Override
                 public void internalFrameClosing(InternalFrameEvent e){
                     frameList.remove(e.getInternalFrame());
+                    int nElem = opcionesBoxCALL.getItemCount();
+                    for (int i = 0; i < nElem; i++) {
+                        if (opcionesBoxPUT.getItemAt(i).equals(cartera.nombre))
+                            opcionesBoxPUT.remove(i);
+                        if (opcionesBoxCALL.getItemAt(i).equals(cartera.nombre))
+                            opcionesBoxCALL.remove(i);
+                    }
                 }
             });
-            carteraFrame.show();
-            ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
+            carteraFrame.actualizarCartera();
+            carteraFrame.setBounds(22, 140, 650, 300); 
+            carteraFrame.setVisible(true);
+            Escritorio.add(carteraFrame);
+            try {
+                carteraFrame.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {}
             //añadirlo al JComboBox
-            carteraBoxPUT.addItem(cartera.nombre);
-            carteraBoxCALL.addItem(cartera.nombre);
-            
+            opcionesBoxPUT.addItem(cartera.nombre);
+            opcionesBoxCALL.addItem(cartera.nombre);
         }
-    }
-    
-    private void createCarteraFrame(Cartera cartera){
-        CarteraFrame carteraFrame = new CarteraFrame(cartera);
-        carteraFrame.setSize(new Dimension(240, 300));       
-        carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e){             
-                frameList.remove(e.getInternalFrame());                 
-                System.out.println("from frame closing event");         
-            }
-        });
-        jif.show();
-        return jif;
-        
-    }
-    
-    //Cerrar ventana cartera
-    //Lanza una ventanita de si quieres guardar (hay que crearla con sus botones
-    String nombreCartera; ////////////////////Tiene que ser una variable global del jFrame "carteraFrame"
-    public void cerrarVentanaCartera(){
-        carterasGestor.cerrarCartera(nombreCartera);
-        /////////////////////////quitar esta cartera de los JComboBox de las opciones
     }
     
     //Se lanza cuando se actualizan los datos MEFF
