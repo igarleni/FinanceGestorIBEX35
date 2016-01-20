@@ -652,16 +652,16 @@ public class NewMainFrame extends JFrame
         int retorno = filechooser.showOpenDialog(Abrir);
         
         if (retorno == JFileChooser.APPROVE_OPTION){
-            /*File file = filechooser.getSelectedFile();
+            File file = filechooser.getSelectedFile();
             Cartera cartera = carterasGestor.cargarCartera(file);
-            //añadir nueva ventana "carteraFrame" con esta cartera*/
-            CarteraFrame carteraFrame = new CarteraFrame();
-            /*carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+            //añadir nueva ventana "carteraFrame" con esta cartera
+            CarteraFrame carteraFrame = new CarteraFrame(cartera);
+            carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosing(InternalFrameEvent e){
                     frameList.remove(e.getInternalFrame());
                 }
-            });*/
+            });
             ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
             carteraFrame.setBounds(22, 140, 650, 300); 
             carteraFrame.setVisible(true);
