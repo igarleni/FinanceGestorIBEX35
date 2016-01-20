@@ -118,15 +118,13 @@ public class Eventos {
     
     /**
      * Evento: seleccionar una opcion para borrarla de la cartera
-     * 
-     * PONER LA POSICION EN LA TABLA DE: VENCIMIENTO, EJERCICIO, PRECIODECOMPRA Y PRECIOACTUAL
      */
     public void botonDeleteOpcion(){
         int seleccionado = listaOpcionesCartera.getSelectedRow();
-        String tipo = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
-        String vencimiento = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
-        String ejercicio = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
-        String precioDeCompra = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
+        String tipo = (String)listaOpcionesCartera.getValueAt(1, seleccionado);
+        String vencimiento = (String)listaOpcionesCartera.getValueAt(2, seleccionado);
+        String ejercicio = (String)listaOpcionesCartera.getValueAt(3, seleccionado);
+        String precioDeCompra = (String)listaOpcionesCartera.getValueAt(5, seleccionado);
         OpcionCartera opcion = cartera.deleteOpcion(tipo, vencimiento, ejercicio, precioDeCompra);
         if (opcion == null){
             System.out.println("Fallo al borrar opcion!");
@@ -157,6 +155,9 @@ public class Eventos {
         precioActual += (Tools.StringToFloat(opcion.Venta_Precio)*Tools.StringToInteger(cantidad));
         ganancia = cartera.importeInvertido-precioActual;
         //AÑADIR OPCION EN LA TABLA (TENEMOS LOS DATOS VARIABLES EN OPCION -> ENTRADA)
+        //"Nº de opciones", "Tipo", "Fecha de vencimiento",
+        //"Precio de ejercicio", "Fecha de incorporación", "Imp. de compra en el mercado",
+        //"Precio actual", "Ganancia"
     }
     
     /**
@@ -164,8 +165,6 @@ public class Eventos {
      * de las opciones que se muestra en la tabla
      * También actualiza las variables de carteraFrame ganancia y precioActual
      * @param opciones opciones de MEFF nuevas
-     * 
-     * PONER LA POSICION EN LA TABLA DE LAS VARIABLES
      */
     public void actualizarTabla(ArrayList<Opcion> opciones){
         //Buscar las opciones que tengo en el arraylist y luego compararlas
@@ -173,17 +172,17 @@ public class Eventos {
         int numFilas = listaOpcionesCartera.getRowCount();
         for (int i = 0; i < numFilas; i++) {
             for (Opcion opcion : opciones) {
-                    if(opcion.Tipo.equals((String)listaOpcionesCartera.getValueAt(0, i))
-                            && opcion.Ejercicio.equals((String)listaOpcionesCartera.getValueAt(0, i))
-                            && opcion.Vencimiento.equals((String)listaOpcionesCartera.getValueAt(0, i))
+                    if(opcion.Tipo.equals((String)listaOpcionesCartera.getValueAt(1, i))
+                            && opcion.Ejercicio.equals((String)listaOpcionesCartera.getValueAt(3, i))
+                            && opcion.Vencimiento.equals((String)listaOpcionesCartera.getValueAt(2, i))
                             ){
                         float opcionPrecioActual = Tools.StringToFloat(opcion.Venta_Precio);
                         precioActual += opcionPrecioActual * Tools.StringToInteger((String)listaOpcionesCartera.getValueAt(0, i)); //x Cantidad
-                        listaOpcionesCartera.setValueAt(opcion.Venta_Precio, 0, i);
+                        listaOpcionesCartera.setValueAt(opcion.Venta_Precio, 6, i);
                         
-                        float opcionGanancia = Tools.StringToFloat((String)listaOpcionesCartera.getValueAt(0, i)) //precio de compra
+                        float opcionGanancia = Tools.StringToFloat((String)listaOpcionesCartera.getValueAt(5, i)) //precio de compra
                                 - Tools.StringToFloat(opcion.Venta_Precio);
-                        listaOpcionesCartera.setValueAt(Tools.floatToString(opcionGanancia), 0, i);
+                        listaOpcionesCartera.setValueAt(Tools.floatToString(opcionGanancia), 7, i);
                     }
                     
                 }
@@ -196,6 +195,14 @@ public class Eventos {
     ///////////////////////////////////////////////////////////////////////////
     
     MEFF_Opciones meff_opciones = new MEFF_Opciones();
+
+    private CarteraFrame buscarCarteraFrame(String nombreCartera) {
+        for (CarteraFrame carteraFrame : frameList) {
+            if (carteraFrame.cartera.nombre.equals(nombreCartera))
+                return carteraFrame;
+        }
+        return null;
+    }
     
     public class Tarea extends SwingWorker<Void,Integer>{
 
