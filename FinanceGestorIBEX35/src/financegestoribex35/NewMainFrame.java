@@ -106,7 +106,6 @@ public class NewMainFrame extends JFrame
         Escritorio = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         Institucion = new javax.swing.JLabel();
-        ULPGC = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         TablaContado = new javax.swing.JTable();
@@ -236,15 +235,10 @@ public class NewMainFrame extends JFrame
 
         Institucion.setText("<html>Universidad de Las Palmas de Gran Canaria<br>Escuela de Ingeniería Informática<br>Diseño de Interfaces de Usuario<br>Nombres del Grupo</html>");
 
-        ULPGC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/financegestoribex35/LOGO_ULPGC.jpg"))); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(ULPGC))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Institucion, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -254,9 +248,7 @@ public class NewMainFrame extends JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Institucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ULPGC)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contado/Spot", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -356,7 +348,7 @@ public class NewMainFrame extends JFrame
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(jScrollPane7)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
@@ -784,7 +776,6 @@ public class NewMainFrame extends JFrame
     private javax.swing.JTable TablaFuturos;
     private javax.swing.JTable TablaOpcionesCALL;
     private javax.swing.JTable TablaOpcionesPUT;
-    private javax.swing.JLabel ULPGC;
     private javax.swing.JButton añadirCALL;
     private javax.swing.JButton añadirPUT;
     private javax.swing.JButton cancelarDialog;

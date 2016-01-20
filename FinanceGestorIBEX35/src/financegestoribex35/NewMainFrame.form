@@ -315,10 +315,6 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                              <Component id="ULPGC" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Institucion" min="-2" pref="216" max="-2" attributes="0"/>
@@ -330,9 +326,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Institucion" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ULPGC" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="84" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -341,13 +335,6 @@
                     <Component class="javax.swing.JLabel" name="Institucion">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="&lt;html&gt;Universidad de Las Palmas de Gran Canaria&lt;br&gt;Escuela de Ingenier&#xed;a Inform&#xe1;tica&lt;br&gt;Dise&#xf1;o de Interfaces de Usuario&lt;br&gt;Nombres del Grupo&lt;/html&gt;"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="ULPGC">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/financegestoribex35/LOGO_ULPGC.jpg"/>
-                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -423,7 +410,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane7" alignment="0" pref="625" max="32767" attributes="0"/>
+                          <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>

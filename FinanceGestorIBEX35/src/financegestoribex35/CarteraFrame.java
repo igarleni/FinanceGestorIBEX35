@@ -5,10 +5,14 @@
  */
 package financegestoribex35;
 
+import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
 import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.table.*;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -21,6 +25,7 @@ static int openFrameCount = 0;
 static final int xOffset = 30, yOffset = 30;
 private javax.swing.JTable jTable10;
 private javax.swing.JPanel internalPane;
+private JScrollPane panelScroll;
     
 public CarteraFrame() {
     
@@ -35,38 +40,19 @@ public CarteraFrame() {
         
         jTable10 = new javax.swing.JTable();
         internalPane = new javax.swing.JPanel();
+        panelScroll = new JScrollPane(jTable10);
+        internalPane.add( panelScroll, BorderLayout.CENTER );
         
         
     //Set the window's location.
     //setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         JButton boton = new JButton("Soy un boton");
-        boton.setVisible(true);
         boton.setSize(100,45);
         internalPane.add(boton);
 
         
         ///////TABLA
         
-               int fila = 0;
-        DefaultTableModel tablemodel = (DefaultTableModel)jTable10.getModel();
-        }
-        tablemodel.setRowCount(6);
-        for(int i=0;i<nOptions;i++){
-        
-        Opcion opcion = opciones.Opciones.get(i);
-        // actualiza la tabla de PUT
-        if(opcion.Tipo.equals("PUT") && opcion.Vencimiento.equals(selectedItem)){
-        TablaOpcionesPUT.setValueAt(opcion.Ejercicio, fila, 0);
-        TablaOpcionesPUT.setValueAt(opcion.Compra_Vol, fila, 1);
-        TablaOpcionesPUT.setValueAt(opcion.Compra_Precio, fila, 2);
-        TablaOpcionesPUT.setValueAt(opcion.Venta_Precio, fila, 3);
-        TablaOpcionesPUT.setValueAt(opcion.Venta_Vol, fila, 4);
-        TablaOpcionesPUT.setValueAt(opcion.Ultimo, fila, 5);
-        TablaOpcionesPUT.setValueAt(opcion.Volumen, fila, 6);
-        TablaOpcionesPUT.setValueAt(opcion.Hora, fila, 7);
-        fila++;
-        }
-    }
         jTable10.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -103,7 +89,6 @@ public CarteraFrame() {
             jTable10.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        internalPane.add(jTable10);
 
         internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
         this.add(internalPane);
