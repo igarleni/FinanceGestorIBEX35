@@ -195,37 +195,28 @@ public class Eventos {
     //////////////////////////HILO Y MÉTODOS DEL MAIN//////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     
+    MEFF_Opciones meff_opciones = new MEFF_Opciones();
+    
     public class Tarea extends SwingWorker<Void,Integer>{
 
         @Override
         protected Void doInBackground() throws Exception {
             boolean looping = true;
             Integer cuenta = 0;
-            while(true){
+            while(looping){
                 try{
-                    Thread.sleep(100);
+                    Thread.sleep(10000);
                 }
                 catch(InterruptedException e){}
-                for (CarteraFrame carteraFrame : frameList) {
-                    carteraFrame.actualizarCartera();
+                if(meff_opciones.getOptions()){
+                    for (CarteraFrame carteraFrame : frameList) {
+                        carteraFrame.actualizarTabla(meff_opciones.Opciones);
+                    }
                 }
-            return null;
             }
+            return null;
         }
 
-        @Override
-        protected void process(List<Integer> lista){
-            int last = lista.size();
-            BarraProgreso.setValue(lista.get(last-1).intValue());
-        }
-        
-        @Override
-        protected void done(){
-            BotonCancelar.setEnabled(false);
-            BotonAceptar.setEnabled(true);
-            Informacion.setText("Tarea Finalizada!");
-            Dialogo.setCursor(null);
-        }
     }
     //Se lanza cuando se actualizan los datos MEFF
     //Se actualizan datos de la cartera y de las opciones
