@@ -16,7 +16,7 @@ public class OpcionCartera {
     //Clave primaria--> Ejercicio+Vencimiento
     
     //Persistente en archivo
-    public String Volumen = "-";
+    public String Cantidad = "-";
     public String Tipo = "-";
     public String Vencimiento = "-";
     public String Ejercicio = "-"; //precio asociado a la fecha de vencimiento (strike)

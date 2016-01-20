@@ -80,7 +80,7 @@ public class Eventos {
     JComboBox vencimientoBox;
     ////////////////////PARA CALL Y PUT, CAMBIAR VARIABLE TIPO
     public void botonAddOpcionPUT(){
-        if (Tools.esFloat(VolumenCompra.getText())){
+        if (Tools.esInteger(VolumenCompra.getText())){
             int seleccionado = listaOpcionesPUT.getSelectedRow();
             String nombreCartera = (String) opcionesBoxPUT.getSelectedItem();
             
@@ -96,9 +96,9 @@ public class Eventos {
             opcion.Volumen = (String)listaOpcionesPUT.getValueAt(6, seleccionado);
             opcion.Hora = (String)listaOpcionesPUT.getValueAt(7, seleccionado);
             opcion.Vencimiento = (String)vencimientoBox.getSelectedItem();
-
+            
             CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
-            carteraFrame.addOpcion(opcion);
+            carteraFrame.addOpcion(opcion, VolumenCompra.getText());
         }
     }
     
@@ -106,42 +106,70 @@ public class Eventos {
     ///////////////////////////////CARTERA FARME///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     
+    /**
+     * VARIABLES GLOBALES
+     * HAY QUE INICIALIZARLAS CUANDO SE CREA LA CARTERAFRAME
+     */
     Cartera cartera = new Cartera("prueba","prueba");
     //Datos ACTUALIZABLES
-    public float precioActual; //Suma de los precios actuales de sus opciones
-    public float ganancia; //cartera.importeInvertido - precioActual
-    
+    public float precioActual = 0; //Suma de los precios actuales de sus opciones x Cantidades
+    public float ganancia = 0; //cartera.importeInvertido - precioActual
     JTable listaOpcionesCartera; //Tabla de la lista de opciones de la cartera
+    
+    /**
+     * Evento: seleccionar una opcion para borrarla de la cartera
+     * PONER LA POSICION EN LA TABLA DE: VENCIMIENTO, EJERCICIO, PRECIODECOMPRA Y PRECIOACTUAL
+     */
     public void botonDeleteOpcion(){
         int seleccionado = listaOpcionesCartera.getSelectedRow();
-        ////////////////////////////PONER LA POSICION DE VENCIMIENTO, EJERCICIO, PRECIOACTUAL Y GANANCIA BIEN
         String vencimiento = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
         String ejercicio = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
-        OpcionCartera opcion = cartera.deleteOpcion(vencimiento, ejercicio);
+        String precioDeCompra = (String)listaOpcionesCartera.getValueAt(0, seleccionado);
+        OpcionCartera opcion = cartera.deleteOpcion(vencimiento, ejercicio, precioDeCompra);
         if (opcion == null){
             System.out.println("Fallo al borrar opcion!");
             return;
         }
-        precioActual -= Tools.StringToFloat((String)listaOpcionesCartera.getValueAt(0, seleccionado));
-        ganancia -= Tools.StringToFloat((String)listaOpcionesCartera.getValueAt(0, seleccionado));
-        /////////////ACTUALIZAR TABLA
+        
+        precioActual -= (Tools.StringToFloat(opcion.PrecioDeCompra)
+                * Tools.StringToInteger(opcion.Cantidad)); // opcion.precioActual * cantidad
+        ganancia = cartera.importeInvertido-precioActual;
+        actualizarTabla();
         
     }
     
-    //Añade una opcionCartera a la cartera a partir de una opcion
-    public void addOpcion(Opcion opcion){
-        //////////////////////////////////crear una OpcionCartera a  partir de una Opcion
+    /**
+     * Añade una opcionCartera a la cartera a partir de una opcion y actualiza variables de la carteraFrame
+     * @param opcion opcion a añadir
+     * @param cantidad cantidad de opciones de este tipo compradas
+     */
+    public void addOpcion(Opcion opcion, String cantidad){
         OpcionCartera opcionCartera = new OpcionCartera();
+        opcionCartera.Tipo = opcion.Tipo;
+        opcionCartera.Cantidad = cantidad;
+        opcionCartera.Vencimiento = opcion.Vencimiento;
+        opcionCartera.Ejercicio = opcion.Ejercicio;
         opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
+        opcionCartera.PrecioDeCompra = opcion.Venta_Precio;
         cartera.addOpcion(opcionCartera);
-        precioActual += Tools.StringToFloat(opcion.Venta_Precio);
-        ganancia += Tools.StringToFloat(opcion.Compra_Precio) - Tools.StringToFloat(opcion.Venta_Precio);
-        ///////////ACTUALIZAR TABLA
+        precioActual += (Tools.StringToFloat(opcion.Venta_Precio)*Tools.StringToInteger(cantidad));
+        ganancia = cartera.importeInvertido-precioActual;
+        actualizarTabla();
     }
     
     ///////////////////funcion para actualizar DATOS VARIABLES según SPOT y opciones nuevas
     public void actualizarCartera(ArrayList<Opcion> opciones){
         //Buscar las opciones que tengo en el arraylist y luego compararlas
+        
+        actualizarTabla();
+    }
+    
+    /**
+     * Se lanza cuando se ha realizado una modificación en las opciones de la cartera,
+     * por tanto, hay que actualizar los datos de la tabla
+     */
+    public void actualizarTabla(){
+        
     }
     
     ///////////////////////////////////////////////////////////////////////////

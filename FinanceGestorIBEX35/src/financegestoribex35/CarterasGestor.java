@@ -72,7 +72,7 @@ public class CarterasGestor {
                 while(linea.charAt(index) != ' '){
                     index++;
                 }
-                opcionCartera.Volumen = linea.substring(0, index);
+                opcionCartera.Cantidad = linea.substring(0, index);
                 
                 index++;
                 opcionCartera.Tipo = "";
@@ -108,7 +108,7 @@ public class CarterasGestor {
 
             br.write(cartera.nombre);
             for (OpcionCartera opcionCartera : opciones) {
-                br.write(String.valueOf(opcionCartera.Volumen) + " " +
+                br.write(String.valueOf(opcionCartera.Cantidad) + " " +
                     opcionCartera.Tipo + " " +
                     opcionCartera.Vencimiento + " " +
                     opcionCartera.Ejercicio + " " +

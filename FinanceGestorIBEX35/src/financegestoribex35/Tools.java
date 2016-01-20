@@ -65,4 +65,18 @@ public class Tools {
         resultado += String.valueOf(fechaActual.get(Calendar.YEAR));
         return resultado;
     }
+    
+    public static int StringToInteger(String texto){
+        return Integer.parseInt(texto);
+    }
+    
+    public static boolean esInteger(String texto){
+        try{
+            Integer.parseInt(texto);
+            return true;
+        }
+        catch(NumberFormatException e){
+            return false;
+        }
+    }
 }
