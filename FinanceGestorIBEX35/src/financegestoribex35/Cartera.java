@@ -22,6 +22,7 @@ public class Cartera {
         this.nombre = nombre;
         this.carteraPath = filePath;
         opciones = new ArrayList<>();
+        importeInvertido = 0;
     }
     
     public void addOpcion(OpcionCartera opcion){ 

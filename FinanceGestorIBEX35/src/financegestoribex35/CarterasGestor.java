@@ -19,24 +19,6 @@ import java.util.ArrayList;
  */
 public class CarterasGestor {
     
-    /**
-     * Mesa de trabajo donde se guardan las Carteras que está usando el jFrame
-     * 
-     * 1.-Se editan las carteras accediendo directamente al ArrayList de la clase
-     * 
-     * 2.-CargarCartera(filePath): carga la cartera del archivo ubicado en filePath y lo mete en el ArrayList
-     * 
-     * 3.-BuscarCartera(nombreCartera): esta funcion te devuelve la posicion de la cartera en el ArrayList
-     * 
-     * 4.-GuardarCartera(nombreCartera): guarda lo que hay en la cartera en su filePath correspondiente
-     * 
-     * 5.-CrearCartera(nombreCartera, filePath): hay que pasarle un filePath de dónde se va a crear la cartera
-     * 
-     * 6.-EliminarCartera(nombreCartera): elimina la cartera y su archivo ubicado en filePath
-     * 
-     * 7.-CerrarCartera(nombreCartera): quita la cartera del ArrayList pero borrar el archivo
-     */
-    
     public CarterasGestor(){
     }
     
@@ -53,8 +35,10 @@ public class CarterasGestor {
                 OpcionCartera opcionCartera = extraerDatosOpcion(linea);
                 if(Tools.fechaVencida(opcionCartera.Vencimiento)){
                     carteraEditada = true;
-                }else
+                }else{
+                    cartera.importeInvertido += Tools.StringToFloat(opcionCartera.PrecioDeCompra);
                     cartera.addOpcion(opcionCartera);
+                }
             }
             f.close();
             if(carteraEditada) guardarCartera(cartera);
