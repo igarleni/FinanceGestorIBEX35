@@ -115,7 +115,7 @@ public class NewMainFrame extends JFrame
         jLabel3 = new javax.swing.JLabel();
         comboBoxPut = new javax.swing.JComboBox();
         añadirPUT = new javax.swing.JButton();
-        opcionesBoxPUT = new javax.swing.JComboBox();
+        carteraBoxPUT = new javax.swing.JComboBox();
         udsPUT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -125,7 +125,7 @@ public class NewMainFrame extends JFrame
         TablaOpcionesCALL = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         añadirCALL = new javax.swing.JButton();
-        opcionesBoxCALL = new javax.swing.JComboBox();
+        carteraBoxCALL = new javax.swing.JComboBox();
         udsCALL = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -338,7 +338,7 @@ public class NewMainFrame extends JFrame
             }
         });
 
-        opcionesBoxPUT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
+        carteraBoxPUT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
 
         jLabel5.setText("Uds. a");
 
@@ -348,7 +348,7 @@ public class NewMainFrame extends JFrame
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
@@ -362,7 +362,7 @@ public class NewMainFrame extends JFrame
                 .addGap(10, 10, 10)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(carteraBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(añadirPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -379,7 +379,7 @@ public class NewMainFrame extends JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(añadirPUT)
-                    .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(carteraBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(udsPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7)))
@@ -423,7 +423,7 @@ public class NewMainFrame extends JFrame
         añadirCALL.setText("Añadir");
         añadirCALL.setToolTipText("Añadir opciones PUT a una cartera abierta");
 
-        opcionesBoxCALL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
+        carteraBoxCALL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
 
         jLabel6.setText("Uds. a");
 
@@ -433,7 +433,7 @@ public class NewMainFrame extends JFrame
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(jScrollPane8)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -447,7 +447,7 @@ public class NewMainFrame extends JFrame
                 .addGap(10, 10, 10)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(carteraBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(añadirCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -461,13 +461,14 @@ public class NewMainFrame extends JFrame
                     .addComponent(jLabel4))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(añadirCALL)
-                    .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(carteraBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(udsCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel8)))
+                    .addComponent(jLabel8))
+                .addGap(3, 3, 3))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Futuros (MINI) IBEX35", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -543,8 +544,8 @@ public class NewMainFrame extends JFrame
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -646,8 +647,8 @@ public class NewMainFrame extends JFrame
         filechooser.setCurrentDirectory(null);
         filechooser.addChoosableFileFilter(new CarFilter());
         filechooser.setFileFilter(new CarFilter());
-        JComboBox carteraBoxPUT; //CALL Y PUT
-        JComboBox carteraBoxCALL; //CALL Y PUT
+        JComboBox carteraBoxPUT = null; //CALL Y PUT
+        JComboBox carteraBoxCALL = null; //CALL Y PUT
         
         int retorno = filechooser.showOpenDialog(Abrir);
         
@@ -671,8 +672,8 @@ public class NewMainFrame extends JFrame
                 carteraFrame.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {}
             //añadirlo al JComboBox
-            //opcionesBoxPUT.addItem(cartera.nombre);
-            //opcionesBoxCALL.addItem(cartera.nombre);
+            carteraBoxPUT.addItem(cartera.nombre);
+            carteraBoxCALL.addItem(cartera.nombre);
             
         }
     }//GEN-LAST:event_AbrirActionPerformed
@@ -683,6 +684,16 @@ public class NewMainFrame extends JFrame
 
     private void añadirPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPUTActionPerformed
         // TODO add your handling code here:
+        OpcionCartera addOpcionPUT = new OpcionCartera();
+        addOpcionPUT.Cantidad = udsPUT.getText();
+        addOpcionPUT.Tipo = "PUT";
+        addOpcionPUT.Vencimiento = Tools.darFormatoFecha(comboBoxPut.getSelectedItem().toString());
+        addOpcionPUT.Ejercicio = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 3).toString();
+        addOpcionPUT.FechaIncorporacionCartera = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 4).toString();
+        addOpcionPUT.PrecioDeCompra = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 5).toString();
+        //carteraBoxPUT.addOpcion(addOpcionPUT);
+        
+
     }//GEN-LAST:event_añadirPUTActionPerformed
 
     private void crearDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearDialogActionPerformed
@@ -779,6 +790,8 @@ public class NewMainFrame extends JFrame
     private javax.swing.JButton añadirCALL;
     private javax.swing.JButton añadirPUT;
     private javax.swing.JButton cancelarDialog;
+    private javax.swing.JComboBox carteraBoxCALL;
+    private javax.swing.JComboBox carteraBoxPUT;
     private javax.swing.JComboBox comboBoxCall;
     private javax.swing.JComboBox comboBoxPut;
     private javax.swing.JDialog crearCarteraDialog;
@@ -809,8 +822,6 @@ public class NewMainFrame extends JFrame
     private javax.swing.JMenu menuCartera;
     private javax.swing.JMenu menuExit;
     private javax.swing.JTextField nombreCarteraNueva;
-    private javax.swing.JComboBox opcionesBoxCALL;
-    private javax.swing.JComboBox opcionesBoxPUT;
     private javax.swing.JTextField udsCALL;
     private javax.swing.JTextField udsPUT;
     // End of variables declaration//GEN-END:variables

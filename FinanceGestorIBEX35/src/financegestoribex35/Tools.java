@@ -79,4 +79,24 @@ public class Tools {
             return false;
         }
     }
+    public static String darFormatoFecha(Object fechaPalabras){
+        String fecha = fechaPalabras.toString();
+        return fecha.substring(8, 11) + "" + getMesNumerico(fecha.substring(4, 6)) 
+                + "" + fecha.substring(1, 2) ;
+    }
+    
+    public static String getMesNumerico(String fecha){
+        if(fecha.equals("ene")) return "01";
+        if(fecha.equals("feb")) return "02";
+        if(fecha.equals("mar")) return "03";
+        if(fecha.equals("abr")) return "04";
+        if(fecha.equals("may")) return "05";
+        if(fecha.equals("jun")) return "06";
+        if(fecha.equals("jul")) return "07";
+        if(fecha.equals("ago")) return "08";
+        if(fecha.equals("sep")) return "09";
+        if(fecha.equals("oct")) return "10";
+        if(fecha.equals("nov")) return "11";
+        return "12";
+    }
 }

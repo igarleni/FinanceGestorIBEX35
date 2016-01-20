@@ -21,5 +21,4 @@ public class OpcionCartera {
     public String FechaIncorporacionCartera = "-";
     public String PrecioDeCompra = "-"; //precio al que se compro cada opcion(precio de venta del mercado) (1xVolumen)
     
-    
 }

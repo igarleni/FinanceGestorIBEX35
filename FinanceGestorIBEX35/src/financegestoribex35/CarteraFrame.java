@@ -47,14 +47,15 @@ public CarteraFrame(Cartera cartera) {
         internalPane = new javax.swing.JPanel();
         panelScroll = new JScrollPane(jTable10);
         impInvertido = new JLabel();
-        impInvertido.setText(Tools.floatToString(cartera.importeInvertido));
-        
-    //Set the window's location.
-    //setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
-        JButton boton = new JButton("Soy un boton");
+        impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ "€                        Precio actual " + "                        Ganancia: ");
+        JButton boton = new JButton("Eliminar opciones");
         boton.setSize(100,45);
+    //Set the window's location.
+        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
+        
+        
+        internalPane.add(boton, BorderLayout.LINE_END);
         internalPane.add( panelScroll, BorderLayout.CENTER );
-        internalPane.add(boton);
         internalPane.add(impInvertido);
         
         ///////TABLA

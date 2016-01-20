@@ -31,7 +31,7 @@ public class Cartera {
                     && opcione.Vencimiento.equals(opcion.Vencimiento)
                     && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
                     && opcione.Tipo.equals(opcion.Tipo)) {
-                opcione.Cantidad += opcion.Cantidad;
+                opcione.Cantidad += opcion.Cantidad ;
                 break;
             }
         }
