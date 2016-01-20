@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author Italo
  */
-public class TxtFilter extends FileFilter {
+public class CarFilter extends FileFilter {
             
     @Override
     public boolean accept(File f) {         
@@ -24,7 +24,7 @@ public class TxtFilter extends FileFilter {
         String extension = filename.substring(dot + 1);
   
         if (extension != null) {             
-            if( extension.equals("txt"))               
+            if( extension.equals("car"))               
                 return true;             
             else               
                 return false;             

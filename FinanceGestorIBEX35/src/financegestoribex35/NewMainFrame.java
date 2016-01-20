@@ -10,10 +10,13 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,6 +41,7 @@ public class NewMainFrame extends JFrame
      * Creates new form NewMainFrame
      */
     public NewMainFrame() {
+        carpeta = null;
         this.frameList = new ArrayList<>();
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
@@ -87,8 +91,15 @@ public class NewMainFrame extends JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
+        crearCarteraDialog = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        crearDialog = new javax.swing.JButton();
+        cancelarDialog = new javax.swing.JButton();
+        nombreCarteraNueva = new javax.swing.JTextField();
+        explorarDialog = new javax.swing.JButton();
+        errorCarpeta = new javax.swing.JLabel();
+        errorNombre = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Fecha = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -104,15 +115,21 @@ public class NewMainFrame extends JFrame
         TablaOpcionesPUT = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         comboBoxPut = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        añadirPUT = new javax.swing.JButton();
         opcionesBoxPUT = new javax.swing.JComboBox();
+        udsPUT = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         comboBoxCall = new javax.swing.JComboBox();
         jScrollPane8 = new javax.swing.JScrollPane();
         TablaOpcionesCALL = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        añadirCALL = new javax.swing.JButton();
         opcionesBoxCALL = new javax.swing.JComboBox();
+        udsCALL = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaFuturos = new javax.swing.JTable();
@@ -123,23 +140,86 @@ public class NewMainFrame extends JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenu();
 
-        jLabel1.setText("jLabel1");
+        crearCarteraDialog.setTitle("Crear cartera nueva");
+        crearCarteraDialog.setBounds(new java.awt.Rectangle(250, 250, 0, 0));
+        crearCarteraDialog.setMinimumSize(new java.awt.Dimension(511, 230));
+        crearCarteraDialog.setResizable(false);
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel1)
-                .addContainerGap(298, Short.MAX_VALUE))
+        jLabel1.setText("Nombre:");
+        jLabel1.setToolTipText("");
+
+        jLabel2.setText("Carpeta de destino:");
+
+        crearDialog.setBackground(new java.awt.Color(0, 204, 51));
+        crearDialog.setText("Crear");
+        crearDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearDialogActionPerformed(evt);
+            }
+        });
+
+        cancelarDialog.setBackground(new java.awt.Color(255, 0, 0));
+        cancelarDialog.setText("Cancelar");
+        cancelarDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarDialogActionPerformed(evt);
+            }
+        });
+
+        explorarDialog.setText("Seleccionar carpeta");
+        explorarDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                explorarDialogActionPerformed(evt);
+            }
+        });
+
+        errorCarpeta.setForeground(new java.awt.Color(255, 0, 0));
+
+        errorNombre.setForeground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout crearCarteraDialogLayout = new javax.swing.GroupLayout(crearCarteraDialog.getContentPane());
+        crearCarteraDialog.getContentPane().setLayout(crearCarteraDialogLayout);
+        crearCarteraDialogLayout.setHorizontalGroup(
+            crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crearCarteraDialogLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(errorCarpeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(crearCarteraDialogLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(crearDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(cancelarDialog)
+                        .addGap(0, 95, Short.MAX_VALUE))
+                    .addComponent(explorarDialog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nombreCarteraNueva)
+                    .addComponent(errorNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel1)
-                .addContainerGap(223, Short.MAX_VALUE))
+        crearCarteraDialogLayout.setVerticalGroup(
+            crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crearCarteraDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(errorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nombreCarteraNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(errorCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addGroup(crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(explorarDialog)
+                    .addComponent(jLabel2))
+                .addGap(40, 40, 40)
+                .addGroup(crearCarteraDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(crearDialog)
+                    .addComponent(cancelarDialog))
+                .addGap(35, 35, 35))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -253,33 +333,47 @@ public class NewMainFrame extends JFrame
             }
         });
         TablaOpcionesPUT.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TablaOpcionesPUT.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        TablaOpcionesPUT.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane7.setViewportView(TablaOpcionesPUT);
 
         jLabel3.setText("Fecha de Vencimiento:");
 
-        jButton1.setText("Añadir");
-        jButton1.setToolTipText("Añadir opciones PUT a una cartera abierta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        añadirPUT.setText("Añadir");
+        añadirPUT.setToolTipText("Añadir opciones PUT a una cartera abierta");
+        añadirPUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                añadirPUTActionPerformed(evt);
             }
         });
+
+        opcionesBoxPUT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
+
+        jLabel5.setText("Uds. a");
+
+        jLabel7.setText("Añadir");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(udsPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(añadirPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,12 +381,16 @@ public class NewMainFrame extends JFrame
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton1)
-                    .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(añadirPUT)
+                    .addComponent(opcionesBoxPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(udsPUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones IBEX35 - CALL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -325,28 +423,42 @@ public class NewMainFrame extends JFrame
             }
         });
         TablaOpcionesCALL.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TablaOpcionesCALL.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        TablaOpcionesCALL.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane8.setViewportView(TablaOpcionesCALL);
 
         jLabel4.setText("Fecha de Vencimiento:");
 
-        jButton3.setText("Añadir");
-        jButton3.setToolTipText("Añadir opciones PUT a una cartera abierta");
+        añadirCALL.setText("Añadir");
+        añadirCALL.setToolTipText("Añadir opciones PUT a una cartera abierta");
+
+        opcionesBoxCALL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
+
+        jLabel6.setText("Uds. a");
+
+        jLabel8.setText("Añadir");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(udsCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(añadirCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,12 +466,16 @@ public class NewMainFrame extends JFrame
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton3)
-                    .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(añadirCALL)
+                    .addComponent(opcionesBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(udsCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Futuros (MINI) IBEX35", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -431,10 +547,10 @@ public class NewMainFrame extends JFrame
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,7 +582,7 @@ public class NewMainFrame extends JFrame
                 .addContainerGap()
                 .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE))
         );
 
         BarraMenu.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -487,6 +603,11 @@ public class NewMainFrame extends JFrame
         menuCartera.add(Abrir);
 
         Crear.setText("Crear");
+        Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearActionPerformed(evt);
+            }
+        });
         menuCartera.add(Crear);
 
         jMenuItem1.setText("jMenuItem1");
@@ -531,23 +652,24 @@ public class NewMainFrame extends JFrame
         // TODO add your handling code here:
         JFileChooser filechooser = new JFileChooser();
         filechooser.setCurrentDirectory(null);
-        filechooser.addChoosableFileFilter(new TxtFilter());
+        filechooser.addChoosableFileFilter(new CarFilter());
+        filechooser.setFileFilter(new CarFilter());
         JComboBox carteraBoxPUT; //CALL Y PUT
         JComboBox carteraBoxCALL; //CALL Y PUT
         
         int retorno = filechooser.showOpenDialog(Abrir);
         
         if (retorno == JFileChooser.APPROVE_OPTION){
-            File file = filechooser.getSelectedFile();
+            /*File file = filechooser.getSelectedFile();
             Cartera cartera = carterasGestor.cargarCartera(file);
-            //añadir nueva ventana "carteraFrame" con esta cartera
-            CarteraFrame carteraFrame = new CarteraFrame(cartera);
-            carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+            //añadir nueva ventana "carteraFrame" con esta cartera*/
+            CarteraFrame carteraFrame = new CarteraFrame();
+            /*carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosing(InternalFrameEvent e){
                     frameList.remove(e.getInternalFrame());
                 }
-            });
+            });*/
             ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
             carteraFrame.setBounds(22, 140, 650, 300); 
             carteraFrame.setVisible(true);
@@ -557,8 +679,8 @@ public class NewMainFrame extends JFrame
                 carteraFrame.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {}
             //añadirlo al JComboBox
-            opcionesBoxPUT.addItem(cartera.nombre);
-            opcionesBoxCALL.addItem(cartera.nombre);
+            //opcionesBoxPUT.addItem(cartera.nombre);
+            //opcionesBoxCALL.addItem(cartera.nombre);
             
         }
     }//GEN-LAST:event_AbrirActionPerformed
@@ -567,9 +689,54 @@ public class NewMainFrame extends JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_AbrirMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void añadirPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPUTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_añadirPUTActionPerformed
+
+    private void crearDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearDialogActionPerformed
+        // TODO add your handling code here:
+        errorNombre.setText("");
+        errorCarpeta.setText("");
+        fichero = new File(carpeta, nombreCarteraNueva.getText() + ".car");       
+        if(fichero.exists() && !fichero.isDirectory()) errorNombre.setText("Ya existe un fichero con este nombre");
+        if(nombreCarteraNueva.getText().equals("")) errorNombre.setText("Por favor, introduzca un nombre");
+        if(carpeta == null) errorCarpeta.setText("Por favor, seleccione una carpeta");
+        if(!(nombreCarteraNueva.getText().equals("")) && !(carpeta == null) && !(fichero.exists() && !fichero.isDirectory()))
+        {
+        try {
+            fichero.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(NewMainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.print("" + carpeta + "\\"+ nombreCarteraNueva.getText() + ".car");
+        cancelarDialogActionPerformed(evt);
+        }
+    }//GEN-LAST:event_crearDialogActionPerformed
+
+    private void cancelarDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarDialogActionPerformed
+        // TODO add your handling code here:
+        explorarDialog.setText("Seleccionar carpeta");
+        nombreCarteraNueva.setText(null);
+        carpeta = null;
+        crearCarteraDialog.setVisible(false);
+    }//GEN-LAST:event_cancelarDialogActionPerformed
+
+    private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
+        // TODO add your handling code here:
+        crearCarteraDialog.setVisible(true);
+    }//GEN-LAST:event_CrearActionPerformed
+
+    private void explorarDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explorarDialogActionPerformed
+        // TODO add your handling code here:
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setCurrentDirectory(null);
+        filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (filechooser.showDialog(null, "Seleccione carpeta de destino") == JFileChooser.APPROVE_OPTION) {
+        carpeta = filechooser.getSelectedFile();
+        explorarDialog.setText(""+carpeta);
+        System.out.println (carpeta.getName());
+         }
+    }//GEN-LAST:event_explorarDialogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -618,14 +785,24 @@ public class NewMainFrame extends JFrame
     private javax.swing.JTable TablaOpcionesCALL;
     private javax.swing.JTable TablaOpcionesPUT;
     private javax.swing.JLabel ULPGC;
+    private javax.swing.JButton añadirCALL;
+    private javax.swing.JButton añadirPUT;
+    private javax.swing.JButton cancelarDialog;
     private javax.swing.JComboBox comboBoxCall;
     private javax.swing.JComboBox comboBoxPut;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog crearCarteraDialog;
+    private javax.swing.JButton crearDialog;
+    private javax.swing.JLabel errorCarpeta;
+    private javax.swing.JLabel errorNombre;
+    private javax.swing.JButton explorarDialog;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -640,14 +817,18 @@ public class NewMainFrame extends JFrame
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JMenu menuCartera;
     private javax.swing.JMenu menuExit;
+    private javax.swing.JTextField nombreCarteraNueva;
     private javax.swing.JComboBox opcionesBoxCALL;
     private javax.swing.JComboBox opcionesBoxPUT;
+    private javax.swing.JTextField udsCALL;
+    private javax.swing.JTextField udsPUT;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JTable jTable10;
     private javax.swing.JPanel internalPane;
     CarterasGestor carterasGestor = new CarterasGestor();
     private List<CarteraFrame> frameList;
-    
+    File fichero;
+    File carpeta;
     
     private MEFF_Contado contado = new MEFF_Contado();
     private MEFF_Futuros futuros = new MEFF_Futuros();

@@ -37,7 +37,7 @@ public class Eventos {
     public void abrirCartera(){
         JFileChooser filechooser = new JFileChooser();
         filechooser.setCurrentDirectory(null);
-        filechooser.addChoosableFileFilter(new TxtFilter());
+        filechooser.addChoosableFileFilter(new CarFilter());
         
         int retorno = filechooser.showOpenDialog(Abrir);
         
