@@ -78,7 +78,6 @@ public class NewMainFrame extends JFrame
             }
         });
         
-
         
     }
 
@@ -647,8 +646,6 @@ public class NewMainFrame extends JFrame
         filechooser.setCurrentDirectory(null);
         filechooser.addChoosableFileFilter(new CarFilter());
         filechooser.setFileFilter(new CarFilter());
-        JComboBox carteraBoxPUT = null; //CALL Y PUT
-        JComboBox carteraBoxCALL = null; //CALL Y PUT
         
         int retorno = filechooser.showOpenDialog(Abrir);
         
@@ -672,8 +669,8 @@ public class NewMainFrame extends JFrame
                 carteraFrame.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {}
             //añadirlo al JComboBox
-            carteraBoxPUT.addItem(cartera.nombre);
-            carteraBoxCALL.addItem(cartera.nombre);
+            carteraBoxPUT.addItem("" + cartera.nombre);
+            carteraBoxCALL.addItem("" + cartera.nombre);
             
         }
     }//GEN-LAST:event_AbrirActionPerformed
