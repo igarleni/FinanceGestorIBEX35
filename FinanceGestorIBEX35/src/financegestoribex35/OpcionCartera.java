@@ -5,8 +5,6 @@
  */
 package financegestoribex35;
 
-import java.util.GregorianCalendar;
-
 /**
  *
  * @author Italo

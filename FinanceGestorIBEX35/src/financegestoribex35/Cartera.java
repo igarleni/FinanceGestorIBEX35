@@ -26,7 +26,10 @@ public class Cartera {
     
     public void addOpcion(OpcionCartera opcion){ 
         for (OpcionCartera opcione : opciones) {
-            if (opcione.Ejercicio.equals(opcion.Ejercicio) && opcione.Vencimiento.equals(opcion.Vencimiento) && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)) {
+            if (opcione.Ejercicio.equals(opcion.Ejercicio) 
+                    && opcione.Vencimiento.equals(opcion.Vencimiento)
+                    && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
+                    && opcione.Tipo.equals(opcion.Tipo)) {
                 opcione.Cantidad += opcion.Cantidad;
                 break;
             }
@@ -35,11 +38,12 @@ public class Cartera {
         opciones.add(opcion);
     }
     
-    public OpcionCartera deleteOpcion(String vencimiento, String ejercicio, String precioDeCompra){
+    public OpcionCartera deleteOpcion(String Tipo, String vencimiento, String ejercicio, String precioDeCompra){
         for (int i = 0; i < opciones.size(); i++) {
             if (opciones.get(i).Ejercicio.equals(ejercicio) 
                     && opciones.get(i).Vencimiento.equals(vencimiento)
                     && opciones.get(i).PrecioDeCompra.equals(precioDeCompra)
+                    && opciones.get(i).Tipo.equals(Tipo)
                     ){
                 OpcionCartera opcion = opciones.get(i);
                 importeInvertido -= (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
