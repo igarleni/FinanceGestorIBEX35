@@ -53,12 +53,10 @@ public class Tools {
     public static boolean fechaVencida(String fecha){
         GregorianCalendar fechaOpcion = new GregorianCalendar();
         String fechaTraducida = darFormatoFecha(fecha);
-        System.out.println(fecha+ "  " + fechaTraducida);
-        System.out.println(""+ fecha.length());
-        fechaOpcion.set(Tools.StringToInteger(fechaTraducida.substring(0, 5)), 
-                (Tools.StringToInteger(fechaTraducida.substring(5,7))-1), 
-                Tools.StringToInteger(fechaTraducida.substring(7,9)));
-        return fechaOpcion.after(new GregorianCalendar());
+        fechaOpcion.set(Tools.StringToInteger(fechaTraducida.substring(0, 4)), 
+                (Tools.StringToInteger(fechaTraducida.substring(4,6))-1), 
+                Tools.StringToInteger(fechaTraducida.substring(6)));
+        return fechaOpcion.before(new GregorianCalendar());
     }
     
     public static String getFechaActual(){

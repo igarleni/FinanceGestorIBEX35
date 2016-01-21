@@ -31,7 +31,9 @@ public class CarterasGestor {
             String linea;
             Cartera cartera = new Cartera(br.readLine(), filePath.getAbsolutePath());
             boolean carteraEditada = false;
-            while((linea = br.readLine()) != null){
+            linea = br.readLine();
+            while(linea != null){
+                System.out.println(linea);
                 OpcionCartera opcionCartera = extraerDatosOpcion(linea);
                 if(Tools.fechaVencida(opcionCartera.Vencimiento)){
                     carteraEditada = true;
@@ -39,9 +41,10 @@ public class CarterasGestor {
                     cartera.importeInvertido += Tools.StringToFloat(opcionCartera.PrecioDeCompra);
                     cartera.addOpcion(opcionCartera);
                 }
+                linea = br.readLine();
             }
             f.close();
-            if(carteraEditada) guardarCartera(cartera);
+           // if(carteraEditada) guardarCartera(cartera);
             return cartera;
             
         } catch (IOException ex) {
