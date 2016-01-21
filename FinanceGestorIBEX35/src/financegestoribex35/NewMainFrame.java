@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -37,6 +38,10 @@ public class NewMainFrame extends JFrame
         carpeta = null;
         this.frameList = new ArrayList<>();
         initComponents();
+        Tarea tarea;
+        tarea = new Tarea();
+        tarea.execute();
+        
         this.setExtendedState(MAXIMIZED_BOTH); //maximizar la ventana
         setDate();
         Timer timDate = new Timer(20000,new ActionListener(){ // 20 segundos
@@ -412,6 +417,11 @@ public class NewMainFrame extends JFrame
 
         añadirCALL.setText("Añadir");
         añadirCALL.setToolTipText("Añadir opciones PUT a una cartera abierta");
+        añadirCALL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                añadirCALLActionPerformed(evt);
+            }
+        });
 
         carteraBoxCALL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar cartera..." }));
 
@@ -747,6 +757,36 @@ public class NewMainFrame extends JFrame
          }
     }//GEN-LAST:event_explorarDialogActionPerformed
 
+    private void añadirCALLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirCALLActionPerformed
+        // TODO add your handling code here:
+        if (Tools.esInteger(udsCALL.getText())){
+            String nombreCartera = (String) carteraBoxCALL.getSelectedItem();
+            
+            //Añadir al arraylist
+            Opcion opcion = new Opcion();
+            opcion.Tipo = "CALL"; ///////////////////////"CALL" SI ES EL CASO DE OPCIONES CALL
+            opcion.Ejercicio = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 0);
+            opcion.Compra_Vol = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 1);
+            opcion.Compra_Precio = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 2);
+            opcion.Venta_Precio = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 3);
+            opcion.Venta_Vol = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 4);
+            opcion.Ultimo = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 5);
+            opcion.Volumen = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 6);
+            opcion.Hora = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 7);
+            opcion.Vencimiento = (String)carteraBoxCALL.getSelectedItem();
+            
+            CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
+            carteraFrame.addOpcion(opcion, udsCALL.getText());
+            CarteraFrame carteraActual = null;
+            for (CarteraFrame carteraAdd : frameList) {
+                if(carteraAdd.cartera.nombre.equals(carteraBoxCALL.getSelectedItem())) 
+                    carteraActual = carteraAdd;
+            }
+            if(carteraActual != null)carteraActual.addOpcion(opcion, udsCALL.getText());
+        
+        }
+    }//GEN-LAST:event_añadirCALLActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1014,6 +1054,27 @@ public void actualizaTableCALL(){
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    MEFF_Opciones meff_opciones = new MEFF_Opciones();
 
+     public class Tarea extends SwingWorker<Void,Integer>{
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            boolean looping = true;
+            while(looping){
+                try{
+                    Thread.sleep(10000);
+                }
+                catch(InterruptedException e){}
+                if(meff_opciones.getOptions()){
+                    for (CarteraFrame carteraFrame : frameList) {
+                        carteraFrame.actualizarTabla(meff_opciones.Opciones);
+                    }
+                }
+            }
+            return null;
+        }
+
+    }
 
 }

@@ -638,6 +638,9 @@
                         <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
                         <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir opciones PUT a una cartera abierta"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a&#xf1;adirCALLActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="carteraBoxCALL">
                       <Properties>
