@@ -61,9 +61,15 @@ public class Tools {
     
     public static String getFechaActual(){
         GregorianCalendar fechaActual = new GregorianCalendar();
-        String resultado = String.valueOf(fechaActual.get(Calendar.DAY_OF_MONTH));
-        resultado += String.valueOf(fechaActual.get(Calendar.MONTH)+1);
-        resultado += String.valueOf(fechaActual.get(Calendar.YEAR));
+        String resultado;
+        int dato = fechaActual.get(Calendar.DAY_OF_MONTH);
+        if(dato < 10)
+            resultado = "0" + String.valueOf(dato);
+        else
+            resultado = String.valueOf(dato);
+        
+        resultado += " " + getMesAlfabeto(fechaActual.get(Calendar.DAY_OF_MONTH));
+        resultado += " " + String.valueOf(fechaActual.get(Calendar.YEAR));
         return resultado;
     }
     
@@ -103,6 +109,21 @@ public class Tools {
         if(fecha.equals("oct")) return "10";
         if(fecha.equals("nov")) return "11";
         return "12";
+    }
+
+    private static String getMesAlfabeto(int mes) {
+        if(mes==0) return "ene";
+        if(mes==1) return "feb";
+        if(mes==2) return "mar";
+        if(mes==3) return "abr";
+        if(mes==4) return "may";
+        if(mes==5) return "jun";
+        if(mes==6) return "jul";
+        if(mes==7) return "ago";
+        if(mes==8) return "sep";
+        if(mes==9) return "oct";
+        if(mes==10) return "nov";
+        return "dic";
     }
     
     
