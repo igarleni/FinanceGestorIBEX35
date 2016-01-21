@@ -192,6 +192,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         OpcionCartera opcionCartera = new OpcionCartera();
         opcionCartera.Tipo = opcion.Tipo;
         opcionCartera.Cantidad = cantidad;
+        System.out.println(cantidad);
         opcionCartera.Vencimiento = opcion.Vencimiento;
         opcionCartera.Ejercicio = opcion.Ejercicio;
         opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
@@ -237,12 +238,12 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                             - Tools.StringToFloat(opcion.Venta_Precio)), numFilas, 7);
         }
         precioActualCartera += (Tools.StringToFloat(opcionCartera.PrecioDeCompra)*Tools.StringToInteger(cantidad));
-        gananciaCartera = cartera.importeInvertido-precioActualCartera;
+        this.gananciaCartera = cartera.importeInvertido-precioActualCartera;
         
         //Reimprimir datos de la cartera
         impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ 
                 "€                        Precio actual " + precioActualCartera 
-                + "€                        Ganancia: " + gananciaCartera + "€" );
+                + "€                        Ganancia: " + this.gananciaCartera + "€" );
     
     }
     

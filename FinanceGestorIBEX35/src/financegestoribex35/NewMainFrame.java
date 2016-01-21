@@ -700,13 +700,7 @@ public class NewMainFrame extends JFrame
             opcion.Vencimiento = (String)comboBoxPut.getSelectedItem();
             
             CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
-            carteraFrame.addOpcion(opcion, udsPUT.getText());
-            CarteraFrame carteraActual = null;
-            for (CarteraFrame carteraAdd : frameList) {
-                if(carteraAdd.cartera.nombre.equals(carteraBoxPUT.getSelectedItem())) 
-                    carteraActual = carteraAdd;
-            }
-            if(carteraActual != null)carteraActual.addOpcion(opcion, udsPUT.getText());
+            if(carteraFrame != null)carteraFrame.addOpcion(opcion, udsPUT.getText());
         
         }
     
