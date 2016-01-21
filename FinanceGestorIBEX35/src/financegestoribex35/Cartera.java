@@ -5,6 +5,7 @@
  */
 package financegestoribex35;
 
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 
 /**
@@ -26,13 +27,15 @@ public class Cartera {
     }
     
     public void addOpcion(OpcionCartera opcion){ 
+        boolean flag = false;
         for (OpcionCartera opcione : opciones) {
             if (opcione.Ejercicio.equals(opcion.Ejercicio) 
                     && opcione.Vencimiento.equals(opcion.Vencimiento)
                     && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
                     && opcione.Tipo.equals(opcion.Tipo)) {
-                opcione.Cantidad += opcion.Cantidad ;
-                break;
+                opcione.Cantidad += opcion.Cantidad;
+                importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
+                return;
             }
         }
         importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));

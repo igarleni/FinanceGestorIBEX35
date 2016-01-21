@@ -681,7 +681,6 @@ public class NewMainFrame extends JFrame
     private void añadirPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPUTActionPerformed
         // TODO add your handling code here:
         if (Tools.esInteger(udsPUT.getText())){
-            int seleccionado = TablaOpcionesPUT.getSelectedRow();
             String nombreCartera = (String) carteraBoxPUT.getSelectedItem();
             
             //Añadir al arraylist
