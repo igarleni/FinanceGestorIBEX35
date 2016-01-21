@@ -10,11 +10,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -96,6 +98,38 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             }
 
         });      
+        
+        botonGuardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                CarterasGestor.guardarCartera(cartera);
+        }
+            }); 
+        
+        botonGuardarComo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            JFileChooser filechooser = new JFileChooser();
+            filechooser.setCurrentDirectory(null);
+            filechooser.addChoosableFileFilter(new CarFilter());
+            filechooser.setFileFilter(new CarFilter());
+
+            int retorno = filechooser.showOpenDialog(botonGuardarComo);
+
+            if (retorno == JFileChooser.APPROVE_OPTION){
+                File file = filechooser.getSelectedFile();
+                CarterasGestor.guardarComoCartera(cartera, file.getAbsolutePath());
+        }
+            }
+        }); 
+        
+        botonEliminarCar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                CarterasGestor.eliminarCartera();
+        }
+            }); 
+        
         
         
         botonEliminarOp.setBounds (10,10,100,45);

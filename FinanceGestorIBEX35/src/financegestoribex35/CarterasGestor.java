@@ -102,7 +102,7 @@ public class CarterasGestor {
 
     public static boolean guardarComoCartera(Cartera cartera, String filePath){
         String oldCarteraPath = cartera.carteraPath;
-        cartera.carteraPath =filePath ;
+        cartera.carteraPath =filePath+".car" ;
         if (guardarCartera(cartera))
             return true;
         else{
