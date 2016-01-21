@@ -69,21 +69,21 @@ public class MEFF_Opciones {
                                     Opcion PUT = new Opcion();
                                     PUT.Tipo = "PUT";
                                     
-                                    CALL.Hora          = data.get(0).text();
-                                    CALL.Volumen       = data.get(1).text();
-                                    CALL.Ultimo        = data.get(2).text();
-                                    CALL.Compra_Vol    = data.get(3).text();
-                                    CALL.Compra_Precio = data.get(4).text();
-                                    CALL.Venta_Precio  = data.get(5).text();
-                                    CALL.Venta_Vol     = data.get(6).text();
+                                    CALL.Hora          = data.get(0).text().trim();
+                                    CALL.Volumen       = data.get(1).text().trim();
+                                    CALL.Ultimo        = data.get(2).text().trim();
+                                    CALL.Compra_Vol    = data.get(3).text().trim();
+                                    CALL.Compra_Precio = data.get(4).text().trim();
+                                    CALL.Venta_Precio  = data.get(5).text().trim();
+                                    CALL.Venta_Vol     = data.get(6).text().trim();
                                     
-                                    PUT.Hora          = data.get(14).text();
-                                    PUT.Volumen       = data.get(13).text();
-                                    PUT.Ultimo        = data.get(12).text();
-                                    PUT.Compra_Vol    = data.get(8).text();
-                                    PUT.Compra_Precio = data.get(9).text();
-                                    PUT.Venta_Precio  = data.get(10).text();
-                                    PUT.Venta_Vol     = data.get(11).text();
+                                    PUT.Hora          = data.get(14).text().trim();
+                                    PUT.Volumen       = data.get(13).text().trim();
+                                    PUT.Ultimo        = data.get(12).text().trim();
+                                    PUT.Compra_Vol    = data.get(8).text().trim();
+                                    PUT.Compra_Precio = data.get(9).text().trim();
+                                    PUT.Venta_Precio  = data.get(10).text().trim();
+                                    PUT.Venta_Vol     = data.get(11).text().trim();
                                     
                                     // TO DO
                                     String texto = data.get(7).text();
