@@ -6,13 +6,10 @@
 package financegestoribex35;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 /**
  *
@@ -20,11 +17,8 @@ import java.util.ArrayList;
  */
 public class CarterasGestor {
     
-    public CarterasGestor(){
-    }
-    
     //EJEMPLO: 3 PUT 20161231 3000.4 20160131 3000.5
-    public Cartera cargarCartera(File filePath) {
+    public static Cartera cargarCartera(File filePath) {
         FileReader f;
         try {
             f = new FileReader(filePath.getAbsolutePath());
@@ -44,7 +38,7 @@ public class CarterasGestor {
                 linea = br.readLine();
             }
             f.close();
-           // if(carteraEditada) guardarCartera(cartera);
+            //if(carteraEditada) guardarCartera(cartera);
             return cartera;
             
         } catch (IOException ex) {
@@ -52,7 +46,7 @@ public class CarterasGestor {
         }
     }
     
-    private OpcionCartera extraerDatosOpcion(String linea) {
+    private static OpcionCartera extraerDatosOpcion(String linea) {
                 OpcionCartera opcionCartera = new OpcionCartera();
                 
                 int index = 0;
@@ -86,7 +80,7 @@ public class CarterasGestor {
                 return opcionCartera;
     }
 
-    public boolean guardarCartera(Cartera cartera){
+    public static boolean guardarCartera(Cartera cartera){
         PrintWriter f;
         try {
             f = new PrintWriter(new File(cartera.carteraPath));
@@ -106,8 +100,7 @@ public class CarterasGestor {
         }
     }
 
-    public boolean guardarComoCartera(Cartera cartera, String filePath){
-        Integer i;
+    public static boolean guardarComoCartera(Cartera cartera, String filePath){
         String oldCarteraPath = cartera.carteraPath;
         cartera.carteraPath =filePath ;
         if (guardarCartera(cartera))
@@ -118,13 +111,13 @@ public class CarterasGestor {
         }
     }
     
-    public Cartera crearCartera(String nombre, String filePath){
+    public static Cartera crearCartera(String nombre, String filePath){
         Cartera cartera = new Cartera(nombre, filePath);
         guardarCartera(cartera);
         return cartera;
     }
     
-    public boolean eliminarCartera(){
+    public static boolean eliminarCartera(){
         Cartera cartera = new Cartera("prueba", "prueba"); //Esta variable será la cartera del "carteraFrame"
         new File(cartera.carteraPath).delete();
         return true;

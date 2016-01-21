@@ -5,7 +5,6 @@
  */
 package financegestoribex35;
 
-import java.awt.Component;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,14 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
 import javax.swing.Timer;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -649,7 +642,7 @@ public class NewMainFrame extends JFrame
         
         if (retorno == JFileChooser.APPROVE_OPTION){
             File file = filechooser.getSelectedFile();
-            Cartera cartera = carterasGestor.cargarCartera(file);
+            Cartera cartera = CarterasGestor.cargarCartera(file);
             //añadir nueva ventana "carteraFrame" con esta cartera
             CarteraFrame carteraFrame = new CarteraFrame(cartera, opciones.Opciones);
             carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
@@ -840,7 +833,6 @@ public class NewMainFrame extends JFrame
     // End of variables declaration//GEN-END:variables
     private javax.swing.JTable jTable10;
     private javax.swing.JPanel internalPane;
-    CarterasGestor carterasGestor = new CarterasGestor();
     private List<CarteraFrame> frameList;
     File fichero;
     File carpeta;
