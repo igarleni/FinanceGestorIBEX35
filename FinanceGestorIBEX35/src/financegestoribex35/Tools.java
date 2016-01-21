@@ -52,9 +52,12 @@ public class Tools {
     
     public static boolean fechaVencida(String fecha){
         GregorianCalendar fechaOpcion = new GregorianCalendar();
-        fechaOpcion.set(Integer.valueOf(fecha.substring(4, 8)),
-                    Integer.valueOf(fecha.substring(2, 4))-1,
-                    Integer.valueOf(fecha.substring(0, 2)));
+        String fechaTraducida = darFormatoFecha(fecha);
+        System.out.println(fecha+ "  " + fechaTraducida);
+        System.out.println(""+ fecha.length());
+        fechaOpcion.set(Tools.StringToInteger(fechaTraducida.substring(0, 5)), 
+                (Tools.StringToInteger(fechaTraducida.substring(5,7))-1), 
+                Tools.StringToInteger(fechaTraducida.substring(7,9)));
         return fechaOpcion.after(new GregorianCalendar());
     }
     
@@ -79,10 +82,14 @@ public class Tools {
             return false;
         }
     }
-    public static String darFormatoFecha(Object fechaPalabras){
+    public static String darFormatoFecha(String fechaPalabras){
         String fecha = fechaPalabras.toString();
-        return fecha.substring(8, 11) + "" + getMesNumerico(fecha.substring(4, 6)) 
-                + "" + fecha.substring(1, 2) ;
+        if(fecha.length()==12)
+        return fecha.substring(7, 11) + "" + getMesNumerico(fecha.substring(3, 6)) 
+                + "" + fecha.substring(0, 2) ;
+        return ("0" + fecha.substring(5, 10) + "" + 
+                getMesNumerico(fecha.substring(2, 5)) 
+                + "" + fecha.substring(0, 1)) ;
     }
     
     public static String getMesNumerico(String fecha){
@@ -99,4 +106,6 @@ public class Tools {
         if(fecha.equals("nov")) return "11";
         return "12";
     }
+    
+    
 }

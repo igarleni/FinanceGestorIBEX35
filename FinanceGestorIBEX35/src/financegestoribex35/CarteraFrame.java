@@ -6,6 +6,7 @@
 package financegestoribex35;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
@@ -29,20 +30,25 @@ private javax.swing.JTable jTable10;
 private javax.swing.JPanel internalPane;
 private JScrollPane panelScroll;
 private JLabel impInvertido;
-private OpcionCartera f;
+
+public String nombre;
+public final Cartera cartera;
+public float precioActualCartera;
+public float gananciaCartera;
 //precio actual y ganancia
     
-public CarteraFrame(Cartera cartera) {
-    
+public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
+        
         super(cartera.nombre,
           true, //resizable
           true, //closable
           true, //maximizable
           true);//iconifiable
+        this.cartera = cartera;
     //...Create the GUI and put it in the window...
     //...Then set the window size or call pack...
-        System.out.println(Tools.floatToString(cartera.importeInvertido));
-
+        
+        
         jTable10 = new javax.swing.JTable();
         internalPane = new javax.swing.JPanel();
         panelScroll = new JScrollPane(jTable10);
@@ -74,7 +80,7 @@ public CarteraFrame(Cartera cartera) {
         jTable10.getTableHeader().setReorderingAllowed(false);
         
         
-
+        OpcionCartera f;
         for(int i=0;i<cartera.opciones.size();i++){
             f = cartera.opciones.get(i);
             model.addRow(new Object[]{null,null,null,null,null,null,null,null});
@@ -93,12 +99,62 @@ public CarteraFrame(Cartera cartera) {
 
         internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
         this.add(internalPane);
+        actualizarTabla(opciones);
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);*/
     
     }
-
-    public void actualizarCartera(){
-    
-    
+    /**
+     * Añade una opcionCartera a la cartera a partir de una opcion y actualiza variables de la carteraFrame
+     * @param opcion opcion a añadir
+     * @param cantidad cantidad de opciones de este tipo compradas
+     */
+    public void addOpcion(Opcion opcion, String cantidad){
+        OpcionCartera opcionCartera = new OpcionCartera();
+        opcionCartera.Tipo = opcion.Tipo;
+        opcionCartera.Cantidad = cantidad;
+        opcionCartera.Vencimiento = opcion.Vencimiento;
+        opcionCartera.Ejercicio = opcion.Ejercicio;
+        opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
+        opcionCartera.PrecioDeCompra = opcion.Venta_Precio;
+        cartera.addOpcion(opcionCartera);
+        precioActualCartera += (Tools.StringToFloat(opcion.Venta_Precio)*Tools.StringToInteger(cantidad));
+        gananciaCartera = cartera.importeInvertido-precioActualCartera;
+        //AÑADIR OPCION EN LA TABLA (TENEMOS LOS DATOS VARIABLES EN OPCION -> ENTRADA)
+        //"Nº de opciones", "Tipo", "Fecha de vencimiento",
+        //"Precio de ejercicio", "Fecha de incorporación", "Imp. de compra en el mercado",
+        //"Precio actual", "Ganancia"
     }
+    
+    
+       /**
+     * Actualiza las variables PrecioActual(=opcionMEFF.Venta_Precio) y ganancia (=PrecioDeCompra - PrecioActual)
+     * de las opciones que se muestra en la tabla
+     * También actualiza las variables de carteraFrame ganancia y precioActual
+     * @param opciones opciones de MEFF nuevas
+     */
+    public void actualizarTabla(ArrayList<Opcion> opciones){
+        //Buscar las opciones que tengo en el arraylist y luego compararlas
+        precioActualCartera = 0;
+        int numFilas = jTable10.getRowCount();
+        for (int i = 0; i < numFilas; i++) {
+            for (Opcion opcion : opciones) {
+                    if(opcion.Tipo.equals((String)jTable10.getValueAt(i, 1))
+                            && opcion.Ejercicio.equals((String)jTable10.getValueAt(i, 3))
+                            && opcion.Vencimiento.equals((String)jTable10.getValueAt(i, 2))
+                            ){
+                        float opcionPrecioActual = Tools.StringToFloat(opcion.Venta_Precio);
+                        precioActualCartera += opcionPrecioActual * Tools.StringToInteger((String)jTable10.getValueAt(i, 0)); //x Cantidad
+                        jTable10.setValueAt(opcion.Venta_Precio,i, 6);
+                        
+                        float opcionGanancia = Tools.StringToFloat((String)jTable10.getValueAt(i, 5)) //precio de compra
+                                - Tools.StringToFloat(opcion.Venta_Precio);
+                        jTable10.setValueAt(Tools.floatToString(opcionGanancia), i, 7);
+                    }
+                    
+                }
+            }
+        gananciaCartera = cartera.importeInvertido - precioActualCartera;
+    }
+    
+    
 }

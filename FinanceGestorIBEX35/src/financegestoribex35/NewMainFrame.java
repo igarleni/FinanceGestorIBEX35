@@ -77,8 +77,6 @@ public class NewMainFrame extends JFrame
                 actualizaTableCALL();
             }
         });
-        
-        
     }
 
     /**
@@ -653,10 +651,12 @@ public class NewMainFrame extends JFrame
             File file = filechooser.getSelectedFile();
             Cartera cartera = carterasGestor.cargarCartera(file);
             //añadir nueva ventana "carteraFrame" con esta cartera
-            CarteraFrame carteraFrame = new CarteraFrame(cartera);
+            CarteraFrame carteraFrame = new CarteraFrame(cartera, opciones.Opciones);
             carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosing(InternalFrameEvent e){
+                    carteraBoxCALL.removeItem(((CarteraFrame)(e.getInternalFrame())).cartera.nombre);
+                    carteraBoxPUT.removeItem(((CarteraFrame)(e.getInternalFrame())).cartera.nombre);
                     frameList.remove(e.getInternalFrame());
                 }
             });
@@ -669,9 +669,8 @@ public class NewMainFrame extends JFrame
                 carteraFrame.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {}
             //añadirlo al JComboBox
-            carteraBoxPUT.addItem("" + cartera.nombre);
-            carteraBoxCALL.addItem("" + cartera.nombre);
-            
+            carteraBoxPUT.addItem(cartera.nombre);
+            carteraBoxCALL.addItem(cartera.nombre);
         }
     }//GEN-LAST:event_AbrirActionPerformed
 
@@ -681,16 +680,34 @@ public class NewMainFrame extends JFrame
 
     private void añadirPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPUTActionPerformed
         // TODO add your handling code here:
-        OpcionCartera addOpcionPUT = new OpcionCartera();
-        addOpcionPUT.Cantidad = udsPUT.getText();
-        addOpcionPUT.Tipo = "PUT";
-        addOpcionPUT.Vencimiento = Tools.darFormatoFecha(comboBoxPut.getSelectedItem().toString());
-        addOpcionPUT.Ejercicio = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 3).toString();
-        addOpcionPUT.FechaIncorporacionCartera = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 4).toString();
-        addOpcionPUT.PrecioDeCompra = TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 5).toString();
-        //carteraBoxPUT.addOpcion(addOpcionPUT);
+        if (Tools.esInteger(udsPUT.getText())){
+            int seleccionado = TablaOpcionesPUT.getSelectedRow();
+            String nombreCartera = (String) carteraBoxPUT.getSelectedItem();
+            
+            //Añadir al arraylist
+            Opcion opcion = new Opcion();
+            opcion.Tipo = "PUT"; ///////////////////////"CALL" SI ES EL CASO DE OPCIONES CALL
+            opcion.Ejercicio = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 0);
+            opcion.Compra_Vol = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 1);
+            opcion.Compra_Precio = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 2);
+            opcion.Venta_Precio = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 3);
+            opcion.Venta_Vol = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 4);
+            opcion.Ultimo = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 5);
+            opcion.Volumen = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 6);
+            opcion.Hora = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 7);
+            opcion.Vencimiento = (String)comboBoxPut.getSelectedItem();
+            
+            CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
+            carteraFrame.addOpcion(opcion, udsPUT.getText());
+            CarteraFrame carteraActual = null;
+            for (CarteraFrame carteraAdd : frameList) {
+                if(carteraAdd.cartera.nombre.equals(carteraBoxPUT.getSelectedItem())) 
+                    carteraActual = carteraAdd;
+            }
+            if(carteraActual != null)carteraActual.addOpcion(opcion, udsPUT.getText());
         
-
+        }
+    
     }//GEN-LAST:event_añadirPUTActionPerformed
 
     private void crearDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearDialogActionPerformed
@@ -928,6 +945,15 @@ private void CollectData(){
         actualizaTablePUT();
         
     }
+    private CarteraFrame buscarCarteraFrame(String nombreCartera) {
+        for (CarteraFrame carteraFrame : frameList) {
+            if (carteraFrame.cartera.nombre.equals(nombreCartera))
+                return carteraFrame;
+        }
+        return null;
+    }
+
+
 private void actualizaTablePUT(){
         opciones.getOptions();
         int fila = 0;

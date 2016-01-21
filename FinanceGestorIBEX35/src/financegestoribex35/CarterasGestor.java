@@ -66,9 +66,9 @@ public class CarterasGestor {
                 }
                 
                 index++;
-                opcionCartera.Vencimiento = linea.substring(index,index+8);
+                opcionCartera.Vencimiento = linea.substring(index,index+12);
                 
-                index += 9;
+                index += 13;
                 opcionCartera.Ejercicio = "";
                 while(linea.charAt(index) != ' '){
                     opcionCartera.Ejercicio += linea.charAt(index);
@@ -76,9 +76,9 @@ public class CarterasGestor {
                 }
                 
                 index++;
-                opcionCartera.FechaIncorporacionCartera = linea.substring(index, index+8);
+                opcionCartera.FechaIncorporacionCartera = linea.substring(index, index+12);
 
-                index += 9;
+                index += 13;
                 opcionCartera.PrecioDeCompra = linea.substring(index);
                 return opcionCartera;
     }
