@@ -131,6 +131,7 @@ public class NewMainFrame extends JFrame
         menuCartera = new javax.swing.JMenu();
         Abrir = new javax.swing.JMenuItem();
         Crear = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenu();
 
         crearCarteraDialog.setTitle("Crear cartera nueva");
@@ -602,6 +603,9 @@ public class NewMainFrame extends JFrame
         });
         menuCartera.add(Crear);
 
+        jMenuItem1.setText("jMenuItem1");
+        menuCartera.add(jMenuItem1);
+
         BarraMenu.add(menuCartera);
 
         menuExit.setText("Exit");
@@ -849,6 +853,7 @@ public class NewMainFrame extends JFrame
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1061,9 +1066,6 @@ public void actualizaTableCALL(){
                     Thread.sleep(10000);
                 }
                 catch(InterruptedException e){}
-                actualizaTablePUT();
-                actualizaTableCALL();
-                
                 if(meff_opciones.getOptions()){
                     for (CarteraFrame carteraFrame : frameList) {
                         carteraFrame.actualizarTabla(meff_opciones.Opciones);

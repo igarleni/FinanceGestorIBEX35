@@ -68,7 +68,7 @@ public class Tools {
         else
             resultado = String.valueOf(dato);
         
-        resultado += " " + getMesAlfabeto(fechaActual.get(Calendar.MONTH));
+        resultado += " " + getMesAlfabeto(fechaActual.get(Calendar.DAY_OF_MONTH));
         resultado += " " + String.valueOf(fechaActual.get(Calendar.YEAR));
         return resultado;
     }
