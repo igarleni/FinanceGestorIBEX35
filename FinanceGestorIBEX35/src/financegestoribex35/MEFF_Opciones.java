@@ -89,7 +89,7 @@ public class MEFF_Opciones {
                                     String texto = data.get(7).text();
                                     int pos = texto.indexOf("-");
                                     CALL.Vencimiento   = texto.substring(0, pos-1);
-                                    CALL.Ejercicio     = texto.substring(pos+1);
+                                    CALL.Ejercicio     = texto.substring(pos+1).trim();
                                     PUT.Vencimiento   = CALL.Vencimiento;
                                     PUT.Ejercicio     = CALL.Ejercicio;
                                     
