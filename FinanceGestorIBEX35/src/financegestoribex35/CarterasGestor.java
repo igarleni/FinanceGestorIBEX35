@@ -34,7 +34,6 @@ public class CarterasGestor {
             boolean carteraEditada = false;
             linea = br.readLine();
             while(linea != null){
-                System.out.println(linea);
                 OpcionCartera opcionCartera = extraerDatosOpcion(linea);
                 if(Tools.fechaVencida(opcionCartera.Vencimiento)){
                     carteraEditada = true;

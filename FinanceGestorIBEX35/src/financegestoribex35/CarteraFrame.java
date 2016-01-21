@@ -6,6 +6,10 @@
 package financegestoribex35;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -14,6 +18,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -45,6 +50,8 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
           true, //maximizable
           true);//iconifiable
         this.cartera = cartera;
+        DefaultTableModel model;
+        model = new DefaultTableModel();
     //...Create the GUI and put it in the window...
     //...Then set the window size or call pack...
         
@@ -53,20 +60,60 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         internalPane = new javax.swing.JPanel();
         panelScroll = new JScrollPane(jTable10);
         impInvertido = new JLabel();
-        impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ "€                        Precio actual " + "                        Ganancia: ");
-        JButton boton = new JButton("Eliminar opciones");
-        boton.setSize(100,45);
+        impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ 
+                "€                        Precio actual " + precioActualCartera 
+                + "€                        Ganancia: " + gananciaCartera + "€" );
+        
+        //////BOTON ELIMINAR
+        JButton botonEliminarOp = new JButton("Eliminar opciones");
+        JButton botonGuardar = new JButton("Guardar");
+        JButton botonGuardarComo = new JButton("Guardar como");
+        JButton botonEliminarCar = new JButton("Eliminar cartera");
+        
+        botonEliminarOp.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            int seleccionado = jTable10.getSelectedRow();
+            String tipo = (String)jTable10.getValueAt(seleccionado, 1);
+            String vencimiento = (String)jTable10.getValueAt(seleccionado, 2);
+            String ejercicio = (String)jTable10.getValueAt(seleccionado, 3);
+            String precioDeCompra = (String)jTable10.getValueAt(seleccionado, 5);
+            OpcionCartera opcion = cartera.deleteOpcion(tipo, vencimiento, ejercicio, precioDeCompra);
+            if (opcion == null){
+                System.out.println("Fallo al borrar opcion!");
+                return;
+            }
+            model.removeRow(seleccionado); 
+            precioActualCartera -= (Tools.StringToFloat(opcion.PrecioDeCompra)
+                    * Tools.StringToInteger(opcion.Cantidad)); // opcion.precioActual * cantidad
+            gananciaCartera = cartera.importeInvertido-precioActualCartera;
+            //ELIMINAR OPCION EN LA TABLA
+
+                
+                //Execute when button is pressed
+                System.out.println("You clicked the button");
+            }
+
+        });      
+        
+        
+        botonEliminarOp.setBounds (10,10,100,45);
+        botonEliminarCar.setBounds (111,10,100,45);
+        botonGuardar.setBounds (212,10,100,45);
+        botonGuardarComo.setBounds (213,10,100,45);
     //Set the window's location.
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         
         
-        internalPane.add(boton, BorderLayout.LINE_END);
-        internalPane.add( panelScroll, BorderLayout.CENTER );
+        internalPane.add(botonEliminarOp, new FlowLayout());
+        internalPane.add(botonGuardar, new FlowLayout());
+        internalPane.add(botonGuardarComo, new FlowLayout());
+        internalPane.add(botonEliminarCar, new FlowLayout());
+        internalPane.add( panelScroll, new FlowLayout());
         internalPane.add(impInvertido);
         
         ///////TABLA
-        DefaultTableModel model;
-        model = new DefaultTableModel();
         jTable10.setModel(model);
         model.addColumn("Nº de opciones");
         model.addColumn("Tipo");
@@ -78,7 +125,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         model.addColumn("Ganancia");
         jTable10.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable10.getTableHeader().setReorderingAllowed(false);
-        
+        jTable10.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
         
         OpcionCartera f;
         for(int i=0;i<cartera.opciones.size();i++){
@@ -91,13 +138,11 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             jTable10.setValueAt(f.FechaIncorporacionCartera, i, 4);
             jTable10.setValueAt(f.PrecioDeCompra, i, 5);
         }
-
-        
-        
-        
+        panelScroll.setPreferredSize(new Dimension(600, 150));
         
 
-        internalPane.setLayout(new BoxLayout(internalPane, WIDTH));
+
+        internalPane.setLayout(new FlowLayout());
         this.add(internalPane);
         actualizarTabla(opciones);
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);*/
@@ -116,13 +161,45 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         opcionCartera.Ejercicio = opcion.Ejercicio;
         opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
         opcionCartera.PrecioDeCompra = opcion.Venta_Precio;
-        cartera.addOpcion(opcionCartera);
+        
         precioActualCartera += (Tools.StringToFloat(opcion.Venta_Precio)*Tools.StringToInteger(cantidad));
         gananciaCartera = cartera.importeInvertido-precioActualCartera;
-        //AÑADIR OPCION EN LA TABLA (TENEMOS LOS DATOS VARIABLES EN OPCION -> ENTRADA)
-        //"Nº de opciones", "Tipo", "Fecha de vencimiento",
-        //"Precio de ejercicio", "Fecha de incorporación", "Imp. de compra en el mercado",
-        //"Precio actual", "Ganancia"
+        //añadir la opcion a la tabla y a la cartera
+        int numFilas = jTable10.getRowCount();
+        if (cartera.addOpcion(opcionCartera)){ //si existe ya
+            for (int i = 0; i < numFilas; i++) {
+                if(opcionCartera.Tipo.equals((String)jTable10.getValueAt(i, 1))
+                            && opcionCartera.Ejercicio.equals((String)jTable10.getValueAt(i, 3))
+                            && opcionCartera.Vencimiento.equals((String)jTable10.getValueAt(i, 2))
+                            ){
+                    jTable10.setValueAt(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 1))
+                            + Tools.StringToInteger(opcionCartera.Cantidad)), i, 0);
+                    jTable10.setValueAt(opcion.Venta_Precio,i, 6);
+                        
+                    float opcionGanancia = Tools.StringToFloat((String)jTable10.getValueAt(i, 5))
+                            - Tools.StringToFloat(opcion.Venta_Precio);
+                    jTable10.setValueAt(Tools.floatToString(opcionGanancia), i, 7);
+                    break;
+                }
+            }
+        }
+        else{ //si no existia
+            
+            jTable10.setValueAt(opcionCartera.Cantidad, numFilas, 0);
+            jTable10.setValueAt(opcionCartera.Tipo, numFilas, 1);
+            jTable10.setValueAt(opcionCartera.Vencimiento, numFilas, 2);
+            jTable10.setValueAt(opcionCartera.Ejercicio, numFilas, 3);
+            jTable10.setValueAt(opcionCartera.FechaIncorporacionCartera, numFilas, 4);
+            jTable10.setValueAt(opcionCartera.PrecioDeCompra, numFilas, 5);
+            jTable10.setValueAt(opcion.Venta_Precio, numFilas, 6);
+            jTable10.setValueAt(Tools.floatToString(Tools.StringToFloat(opcionCartera.PrecioDeCompra)
+                            - Tools.StringToFloat(opcion.Venta_Precio)), numFilas, 7);
+        }
+        //Reimprimir datos de la cartera
+        impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ 
+                "€                        Precio actual " + precioActualCartera 
+                + "€                        Ganancia: " + gananciaCartera + "€" );
+    
     }
     
     
