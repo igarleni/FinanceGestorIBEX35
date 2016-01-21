@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 public class Tools {
     
     public static boolean esFloat(String texto){
+        texto = texto.replace(".", "");
+        texto = texto.replace(",", ".");
         try{
             Float.parseFloat(texto);
             return true;

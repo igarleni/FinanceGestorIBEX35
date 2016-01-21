@@ -195,10 +195,13 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         opcionCartera.Vencimiento = opcion.Vencimiento;
         opcionCartera.Ejercicio = opcion.Ejercicio;
         opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
+        
+        if(!Tools.esFloat(opcion.Compra_Precio))
+            opcion.Compra_Precio = "0";
+        if(!Tools.esFloat(opcion.Venta_Precio))
+            opcion.Venta_Precio = "0";
         opcionCartera.PrecioDeCompra = opcion.Venta_Precio;
         
-        precioActualCartera += (Tools.StringToFloat(opcion.Venta_Precio)*Tools.StringToInteger(cantidad));
-        gananciaCartera = cartera.importeInvertido-precioActualCartera;
         //añadir la opcion a la tabla y a la cartera
         int numFilas = jTable10.getRowCount();
         if (cartera.addOpcion(opcionCartera)){ //si existe ya
@@ -206,22 +209,23 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                 if(opcionCartera.Tipo.equals((String)jTable10.getValueAt(i, 1))
                             && opcionCartera.Ejercicio.equals((String)jTable10.getValueAt(i, 3))
                             && opcionCartera.Vencimiento.equals((String)jTable10.getValueAt(i, 2))
+                            && opcionCartera.PrecioDeCompra.equals((String)jTable10.getValueAt(i,5))
                             ){
-                    jTable10.setValueAt(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 1))
+                    //sumar cantidad
+                    jTable10.setValueAt(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 0))
                             + Tools.StringToInteger(opcionCartera.Cantidad)), i, 0);
-                    jTable10.setValueAt(opcion.Venta_Precio,i, 6);
-                        
-                    float opcionGanancia = Tools.StringToFloat((String)jTable10.getValueAt(i, 5))
-                            - Tools.StringToFloat(opcion.Venta_Precio);
+                    //actualizar precio actual
+                    jTable10.setValueAt(opcion.Compra_Precio,i, 6);
+                    //calcular nueva ganancia
+                    float opcionGanancia = Tools.StringToFloat(opcionCartera.PrecioDeCompra)
+                            - Tools.StringToFloat(opcion.Compra_Precio);
                     jTable10.setValueAt(Tools.floatToString(opcionGanancia), i, 7);
                     break;
                 }
             }
         }
-        else{ 
-            Vector rowData = null;
-//si no existia
-            model.addRow(rowData);
+        else{ //si no existia
+            model.addRow((Vector)null);
             jTable10.setValueAt(opcionCartera.Cantidad, numFilas, 0);
             jTable10.setValueAt(opcionCartera.Tipo, numFilas, 1);
             jTable10.setValueAt(opcionCartera.Vencimiento, numFilas, 2);
@@ -232,6 +236,9 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             jTable10.setValueAt(Tools.floatToString(Tools.StringToFloat(opcionCartera.PrecioDeCompra)
                             - Tools.StringToFloat(opcion.Venta_Precio)), numFilas, 7);
         }
+        precioActualCartera += (Tools.StringToFloat(opcionCartera.PrecioDeCompra)*Tools.StringToInteger(cantidad));
+        gananciaCartera = cartera.importeInvertido-precioActualCartera;
+        
         //Reimprimir datos de la cartera
         impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ 
                 "€                        Precio actual " + precioActualCartera 
@@ -256,18 +263,25 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                             && opcion.Ejercicio.equals((String)jTable10.getValueAt(i, 3))
                             && opcion.Vencimiento.equals((String)jTable10.getValueAt(i, 2))
                             ){
-                        float opcionPrecioActual = Tools.StringToFloat(opcion.Venta_Precio);
+                        float opcionPrecioActual;
+                        if(Tools.esFloat(opcion.Venta_Precio))
+                            opcionPrecioActual = Tools.StringToFloat(opcion.Venta_Precio);
+                        else
+                            opcionPrecioActual = 0;
                         precioActualCartera += opcionPrecioActual * Tools.StringToInteger((String)jTable10.getValueAt(i, 0)); //x Cantidad
-                        jTable10.setValueAt(opcion.Venta_Precio,i, 6);
+                        jTable10.setValueAt(opcionPrecioActual,i, 6);
                         
                         float opcionGanancia = Tools.StringToFloat((String)jTable10.getValueAt(i, 5)) //precio de compra
-                                - Tools.StringToFloat(opcion.Venta_Precio);
+                                - opcionPrecioActual;
                         jTable10.setValueAt(Tools.floatToString(opcionGanancia), i, 7);
                     }
                     
                 }
             }
         gananciaCartera = cartera.importeInvertido - precioActualCartera;
+        impInvertido.setText("Importe invertido = "+ Tools.floatToString(cartera.importeInvertido)+ 
+                "€                        Precio actual " + precioActualCartera 
+                + "€                        Ganancia: " + gananciaCartera + "€" );
     }
     
     
