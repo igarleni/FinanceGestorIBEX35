@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -87,15 +88,12 @@ public class CarterasGestor {
     }
 
     public boolean guardarCartera(Cartera cartera){
-        FileWriter f;
+        PrintWriter f;
         try {
-            f = new FileWriter(new File(cartera.carteraPath));
-            BufferedWriter br = new BufferedWriter(f);
-            ArrayList<OpcionCartera> opciones = cartera.opciones;
-
-            br.write(cartera.nombre);
-            for (OpcionCartera opcionCartera : opciones) {
-                br.write(String.valueOf(opcionCartera.Cantidad) + " " +
+            f = new PrintWriter(new File(cartera.carteraPath));
+            f.println(cartera.nombre);
+            for (OpcionCartera opcionCartera : cartera.opciones) {
+                f.println(opcionCartera.Cantidad + " " +
                     opcionCartera.Tipo + " " +
                     opcionCartera.Vencimiento + " " +
                     opcionCartera.Ejercicio + " " +
@@ -103,7 +101,6 @@ public class CarterasGestor {
                     opcionCartera.PrecioDeCompra+ "\n");
             }
             f.close();
-            br.close();
             return true;
         } catch (IOException ex) {
             return false;
