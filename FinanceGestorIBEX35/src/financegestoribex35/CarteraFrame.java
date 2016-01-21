@@ -207,7 +207,8 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                             && opcionCartera.Ejercicio.equals((String)jTable10.getValueAt(i, 3))
                             && opcionCartera.Vencimiento.equals((String)jTable10.getValueAt(i, 2))
                             ){
-                    jTable10.setValueAt(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 1))
+                    System.out.println(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 0))) + "   " + Tools.StringToInteger(opcionCartera.Cantidad));
+                    jTable10.setValueAt(String.valueOf(Tools.StringToInteger((String)jTable10.getValueAt(i, 0))
                             + Tools.StringToInteger(opcionCartera.Cantidad)), i, 0);
                     jTable10.setValueAt(opcion.Venta_Precio,i, 6);
                         
