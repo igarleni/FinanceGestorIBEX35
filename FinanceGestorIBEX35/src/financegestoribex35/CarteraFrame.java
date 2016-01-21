@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
@@ -40,18 +41,18 @@ public String nombre;
 public final Cartera cartera;
 public float precioActualCartera;
 public float gananciaCartera;
+private DefaultTableModel model;
 //precio actual y ganancia
     
 public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
-        
         super(cartera.nombre,
           true, //resizable
           true, //closable
           true, //maximizable
           true);//iconifiable
         this.cartera = cartera;
-        DefaultTableModel model;
         model = new DefaultTableModel();
+
     //...Create the GUI and put it in the window...
     //...Then set the window size or call pack...
         
@@ -125,7 +126,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             public void actionPerformed(ActionEvent e)
             {
                 CarterasGestor.eliminarCartera(cartera);
-                this.fireInternalFrameEvent(InternalFrameEvent .INTERNAL_FRAME_CLOSING);
+                fireInternalFrameEvent(InternalFrameEvent .INTERNAL_FRAME_CLOSING);
                 //this.dispatchEvent(new WindowEvent(null, WIDTH), WindowEvent.WINDOW_CLOSING);
         }
             }); 
@@ -217,8 +218,10 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                 }
             }
         }
-        else{ //si no existia
-            
+        else{ 
+            Vector rowData = null;
+//si no existia
+            model.addRow(rowData);
             jTable10.setValueAt(opcionCartera.Cantidad, numFilas, 0);
             jTable10.setValueAt(opcionCartera.Tipo, numFilas, 1);
             jTable10.setValueAt(opcionCartera.Vencimiento, numFilas, 2);
