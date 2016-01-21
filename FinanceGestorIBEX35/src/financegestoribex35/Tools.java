@@ -82,7 +82,7 @@ public class Tools {
     }
     public static String darFormatoFecha(String fechaPalabras){
         String fecha = fechaPalabras.toString();
-        if(fecha.length()==12)
+        if(fecha.length()==11)
         return fecha.substring(7, 11) + "" + getMesNumerico(fecha.substring(3, 6)) 
                 + "" + fecha.substring(0, 2) ;
         return ("0" + fecha.substring(5, 10) + "" + 
