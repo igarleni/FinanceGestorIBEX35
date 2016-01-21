@@ -38,7 +38,7 @@ public class CarterasGestor {
                 linea = br.readLine();
             }
             f.close();
-            //if(carteraEditada) guardarCartera(cartera);
+            if(carteraEditada) guardarCartera(cartera);
             return cartera;
             
         } catch (IOException ex) {
@@ -91,7 +91,7 @@ public class CarterasGestor {
                     opcionCartera.Vencimiento + " " +
                     opcionCartera.Ejercicio + " " +
                     opcionCartera.FechaIncorporacionCartera + " " +
-                    opcionCartera.PrecioDeCompra+ "\n");
+                    opcionCartera.PrecioDeCompra);
             }
             f.close();
             return true;
@@ -101,7 +101,9 @@ public class CarterasGestor {
     }
 
     public static boolean guardarComoCartera(Cartera cartera, String filePath){
+        System.out.println(filePath);
         String oldCarteraPath = cartera.carteraPath;
+        cartera.nombre = filePath.substring(filePath.lastIndexOf('\\')+1);
         cartera.carteraPath =filePath+".car" ;
         if (guardarCartera(cartera))
             return true;
@@ -117,10 +119,9 @@ public class CarterasGestor {
         return cartera;
     }
     
-    public static boolean eliminarCartera(){
-        Cartera cartera = new Cartera("prueba", "prueba"); //Esta variable será la cartera del "carteraFrame"
+    public static boolean eliminarCartera(Cartera cartera){
         new File(cartera.carteraPath).delete();
-        return true;
-    }
+             return true;
+         }
     
 }

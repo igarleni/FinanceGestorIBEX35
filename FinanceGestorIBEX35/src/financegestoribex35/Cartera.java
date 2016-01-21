@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Italo
  */
 public class Cartera {
-    public final String nombre;
+    public String nombre;
     public String carteraPath;
     
     public float importeInvertido; //suma de los (precioDeCompra x volumen) de sus opciones

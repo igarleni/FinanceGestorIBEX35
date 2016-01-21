@@ -126,7 +126,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         botonEliminarCar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                CarterasGestor.eliminarCartera();
+                CarterasGestor.eliminarCartera(cartera);
         }
             }); 
         
