@@ -73,7 +73,6 @@ public class Eventos {
         @Override
         protected Void doInBackground() throws Exception {
             boolean looping = true;
-            Integer cuenta = 0;
             while(looping){
                 try{
                     Thread.sleep(10000);
@@ -89,6 +88,4 @@ public class Eventos {
         }
 
     }
-    //Se lanza cuando se actualizan los datos MEFF
-    //Se actualizan datos de la cartera y de las opciones
 }
