@@ -5,26 +5,24 @@
  */
 package financegestoribex35;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.*;
+import javax.swing.event.InternalFrameEvent;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -127,6 +125,8 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             public void actionPerformed(ActionEvent e)
             {
                 CarterasGestor.eliminarCartera(cartera);
+                this.fireInternalFrameEvent(InternalFrameEvent .INTERNAL_FRAME_CLOSING);
+                //this.dispatchEvent(new WindowEvent(null, WIDTH), WindowEvent.WINDOW_CLOSING);
         }
             }); 
         
