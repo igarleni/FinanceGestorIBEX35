@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -300,7 +301,7 @@ public class NewMainFrame extends JFrame
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Ejerciico", "Vol. Compra", "P Compra", "P Venta", "Vol. Venta", "Último", "Volumen", "Hora(Madrid)"
+                "Ejercicio", "Vol. Compra", "P Compra", "P Venta", "Vol. Venta", "Último", "Volumen", "Hora(Madrid)"
             }
         ) {
             Class[] types = new Class [] {
@@ -390,7 +391,7 @@ public class NewMainFrame extends JFrame
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Ejerciico", "Vol. Compra", "P Compra", "P Venta", "Vol. Venta", "Último", "Volumen", "Hora(Madrid)"
+                "Ejercicio", "Vol. Compra", "P Compra", "P Venta", "Vol. Venta", "Último", "Volumen", "Hora(Madrid)"
             }
         ) {
             Class[] types = new Class [] {
@@ -691,6 +692,8 @@ public class NewMainFrame extends JFrame
 
     private void añadirPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPUTActionPerformed
         // TODO add your handling code here:
+        
+        
         if (Tools.esInteger(udsPUT.getText())){
             String nombreCartera = (String) carteraBoxPUT.getSelectedItem();
             
@@ -726,6 +729,9 @@ public class NewMainFrame extends JFrame
         {
         try {
             fichero.createNewFile();
+            PrintWriter f = new PrintWriter(fichero);
+            f.println(nombreCarteraNueva.getText());
+            f.close();
         } catch (IOException ex) {
             Logger.getLogger(NewMainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

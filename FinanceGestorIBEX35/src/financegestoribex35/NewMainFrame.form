@@ -461,7 +461,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="8" rowCount="5">
-                                <Column editable="false" title="Ejerciico" type="java.lang.String"/>
+                                <Column editable="false" title="Ejercicio" type="java.lang.String"/>
                                 <Column editable="false" title="Vol. Compra" type="java.lang.String"/>
                                 <Column editable="false" title="P Compra" type="java.lang.String"/>
                                 <Column editable="false" title="P Venta" type="java.lang.String"/>
@@ -602,7 +602,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="8" rowCount="5">
-                                <Column editable="false" title="Ejerciico" type="java.lang.String"/>
+                                <Column editable="false" title="Ejercicio" type="java.lang.String"/>
                                 <Column editable="false" title="Vol. Compra" type="java.lang.String"/>
                                 <Column editable="false" title="P Compra" type="java.lang.String"/>
                                 <Column editable="false" title="P Venta" type="java.lang.String"/>
