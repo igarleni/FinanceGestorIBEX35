@@ -728,7 +728,7 @@ public class NewMainFrame extends JFrame
             
             //Añadir al arraylist
             Opcion opcion = new Opcion();
-            opcion.Tipo = "PUT"; ///////////////////////"CALL" SI ES EL CASO DE OPCIONES CALL
+            opcion.Tipo = "PUT";
             opcion.Ejercicio = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 0);
             opcion.Compra_Vol = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 1);
             opcion.Compra_Precio = (String)TablaOpcionesPUT.getValueAt(TablaOpcionesPUT.getSelectedRow(), 2);
@@ -801,7 +801,7 @@ public class NewMainFrame extends JFrame
             
             //Añadir al arraylist
             Opcion opcion = new Opcion();
-            opcion.Tipo = "CALL"; ///////////////////////"CALL" SI ES EL CASO DE OPCIONES CALL
+            opcion.Tipo = "CALL";
             opcion.Ejercicio = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 0);
             opcion.Compra_Vol = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 1);
             opcion.Compra_Precio = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 2);
@@ -813,13 +813,7 @@ public class NewMainFrame extends JFrame
             opcion.Vencimiento = (String)carteraBoxCALL.getSelectedItem();
             
             CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
-            carteraFrame.addOpcion(opcion, udsCALL.getText());
-            CarteraFrame carteraActual = null;
-            for (CarteraFrame carteraAdd : frameList) {
-                if(carteraAdd.cartera.nombre.equals(carteraBoxCALL.getSelectedItem())) 
-                    carteraActual = carteraAdd;
-            }
-            if(carteraActual != null)carteraActual.addOpcion(opcion, udsCALL.getText());
+            if(carteraFrame != null)carteraFrame.addOpcion(opcion, udsCALL.getText());
         
         }
     }//GEN-LAST:event_añadirCALLActionPerformed

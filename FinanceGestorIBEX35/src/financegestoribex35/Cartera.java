@@ -26,23 +26,27 @@ public class Cartera {
     }
     
     public boolean addOpcion(OpcionCartera opcion){ 
+        importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
         for (OpcionCartera opcione : opciones) {
             if (opcione.Ejercicio.equals(opcion.Ejercicio) 
                     && opcione.Vencimiento.equals(opcion.Vencimiento)
                     && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
                     && opcione.Tipo.equals(opcion.Tipo)) {
+<<<<<<< HEAD
                 opcione.Cantidad = String.valueOf(Tools.StringToInteger(opcione.Cantidad)
                         + Tools.StringToInteger(opcion.Cantidad));
                 importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
+=======
+                opcione.Cantidad += opcion.Cantidad;
+>>>>>>> origin/master
                 return true;
             }
         }
-        importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
         opciones.add(opcion);
         return false;
     }
     
-    public OpcionCartera deleteOpcion(String Tipo, String vencimiento, String ejercicio, String precioDeCompra){
+    public boolean deleteOpcion(String Tipo, String vencimiento, String ejercicio, String precioDeCompra){
         for (int i = 0; i < opciones.size(); i++) {
             if (opciones.get(i).Ejercicio.equals(ejercicio) 
                     && opciones.get(i).Vencimiento.equals(vencimiento)
@@ -51,9 +55,10 @@ public class Cartera {
                     ){
                 OpcionCartera opcion = opciones.get(i);
                 importeInvertido -= (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
-                return opciones.remove(i);
+                opciones.remove(i);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }
