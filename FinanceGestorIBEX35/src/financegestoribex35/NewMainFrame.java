@@ -660,7 +660,19 @@ public class NewMainFrame extends JFrame
                 }
             });
             ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
-            carteraFrame.setBounds(22, 140, 650, 300); 
+            
+            if(carteraFrame.openFrameCount == 1)
+                carteraFrame.setBounds(xOffset*carteraFrame.openFrameCount, yOffset*carteraFrame.openFrameCount, 620, 250); 
+            if(carteraFrame.openFrameCount == 2)
+                carteraFrame.setBounds(xOffset+620, yOffset, 620, 250); 
+            if(carteraFrame.openFrameCount == 3)
+                carteraFrame.setBounds(xOffset, yOffset+250, 620, 250); 
+            if(carteraFrame.openFrameCount == 4){
+                carteraFrame.setBounds(xOffset+620, yOffset+250, 620, 250); 
+                carteraFrame.openFrameCount = 0;
+                
+            }
+
             carteraFrame.setVisible(true);
             frameList.add(carteraFrame);
             Escritorio.add(carteraFrame);
@@ -869,6 +881,8 @@ public class NewMainFrame extends JFrame
     private MEFF_Contado contado = new MEFF_Contado();
     private MEFF_Futuros futuros = new MEFF_Futuros();
     private MEFF_Opciones opciones = new MEFF_Opciones();
+    private static final int xOffset = 11, yOffset = 140;
+
 
 private void setDate(){
         Date date = new Date();

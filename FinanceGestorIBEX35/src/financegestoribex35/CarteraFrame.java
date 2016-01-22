@@ -31,7 +31,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CarteraFrame extends JInternalFrame{
 static int openFrameCount = 0;
-static final int xOffset = 30, yOffset = 30;
 private javax.swing.JTable jTable10;
 private javax.swing.JPanel internalPane;
 private JScrollPane panelScroll;
@@ -79,8 +78,6 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         botonEliminarCar.setBounds (111,10,100,45);
         botonGuardar.setBounds (212,10,100,45);
         botonGuardarComo.setBounds (213,10,100,45);
-    //Set the window's location.
-        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         
  /////Action listeners botones       
         
@@ -95,7 +92,6 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             String precioDeCompra = (String)jTable10.getValueAt(seleccionado, 5);
             OpcionCartera opcion = cartera.deleteOpcion(tipo, vencimiento, ejercicio, precioDeCompra);
             if (opcion == null){
-                System.out.println("Fallo al borrar opcion!");
                 return;
             }
             model.removeRow(seleccionado); 
@@ -103,10 +99,6 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
                     * Tools.StringToInteger(opcion.Cantidad)); // opcion.precioActual * cantidad
             gananciaCartera = cartera.importeInvertido-precioActualCartera;
             //ELIMINAR OPCION EN LA TABLA
-
-                
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
             }
 
         });      
@@ -203,7 +195,6 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         OpcionCartera opcionCartera = new OpcionCartera();
         opcionCartera.Tipo = opcion.Tipo;
         opcionCartera.Cantidad = cantidad;
-        System.out.println(cantidad);
         opcionCartera.Vencimiento = opcion.Vencimiento;
         opcionCartera.Ejercicio = opcion.Ejercicio;
         opcionCartera.FechaIncorporacionCartera = Tools.getFechaActual();
