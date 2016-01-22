@@ -46,15 +46,17 @@ private DefaultTableModel model;
     
 public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         super(cartera.nombre,
-          true, //resizable
+          false, //resizable
           true, //closable
-          true, //maximizable
+          false, //maximizable
           true);//iconifiable
         this.cartera = cartera;
         model = new DefaultTableModel();
+        openFrameCount++;
 
     //...Create the GUI and put it in the window...
     //...Then set the window size or call pack...
+
         
         
         jTable10 = new javax.swing.JTable();
@@ -68,8 +70,19 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         //////BOTON ELIMINAR
         JButton botonEliminarOp = new JButton("Eliminar opciones");
         JButton botonGuardar = new JButton("Guardar");
-        JButton botonGuardarComo = new JButton("Guardar como");
+        JButton botonGuardarComo = new JButton("Guardar copia");
         JButton botonEliminarCar = new JButton("Eliminar cartera");
+        
+        
+        
+        botonEliminarOp.setBounds (10,10,100,45);
+        botonEliminarCar.setBounds (111,10,100,45);
+        botonGuardar.setBounds (212,10,100,45);
+        botonGuardarComo.setBounds (213,10,100,45);
+    //Set the window's location.
+        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
+        
+ /////Action listeners botones       
         
         botonEliminarOp.addActionListener(new ActionListener() {
  
@@ -132,14 +145,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             }); 
         
         
-        
-        botonEliminarOp.setBounds (10,10,100,45);
-        botonEliminarCar.setBounds (111,10,100,45);
-        botonGuardar.setBounds (212,10,100,45);
-        botonGuardarComo.setBounds (213,10,100,45);
-    //Set the window's location.
-        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
-        
+ ///////Insertar elementos en la ventana      
         
         internalPane.add(botonEliminarOp, new FlowLayout());
         internalPane.add(botonGuardar, new FlowLayout());
@@ -148,7 +154,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         internalPane.add( panelScroll, new FlowLayout());
         internalPane.add(impInvertido);
         
-        ///////TABLA
+///////TABLA
         jTable10.setModel(model);
         model.addColumn("Nº de opciones");
         model.addColumn("Tipo");
@@ -183,6 +189,11 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);*/
     
     }
+
+
+
+//////Métodos
+
     /**
      * Añade una opcionCartera a la cartera a partir de una opcion y actualiza variables de la carteraFrame
      * @param opcion opcion a añadir
