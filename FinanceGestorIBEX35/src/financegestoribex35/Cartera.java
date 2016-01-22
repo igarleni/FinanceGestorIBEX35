@@ -31,7 +31,8 @@ public class Cartera {
                     && opcione.Vencimiento.equals(opcion.Vencimiento)
                     && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
                     && opcione.Tipo.equals(opcion.Tipo)) {
-                opcione.Cantidad += opcion.Cantidad;
+                opcione.Cantidad = String.valueOf(Tools.StringToInteger(opcione.Cantidad)
+                        + Tools.StringToInteger(opcion.Cantidad));
                 importeInvertido += (Tools.StringToFloat(opcion.PrecioDeCompra)*Tools.StringToInteger(opcion.Cantidad));
                 return true;
             }
