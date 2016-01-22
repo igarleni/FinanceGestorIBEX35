@@ -18,6 +18,8 @@ import javax.swing.JInternalFrame;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -107,6 +109,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             public void actionPerformed(ActionEvent e)
             {
                 CarterasGestor.guardarCartera(cartera);
+                
         }
             }); 
         
@@ -130,11 +133,26 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         botonEliminarCar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
+                Object[] options = {"Sí",
+                    "No"};
+                int n = JOptionPane.showOptionDialog(internalPane,
+                "¿Está seguro de que desea eliminar esta cartera?",
+                "Atención",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,     //do not use a custom Icon
+                options,  //the titles of buttons
+                options[0]); //default button title
+                if(n == YES_OPTION){
+                    
+                JOptionPane.showMessageDialog(internalPane,
+                "La cartera se ha eliminado.");
                 CarterasGestor.eliminarCartera(cartera);
                 openFrameCount--;
                 fireInternalFrameEvent(InternalFrameEvent .INTERNAL_FRAME_CLOSING);
                 dispose();
-        }
+                } 
+       }
             }); 
         
         

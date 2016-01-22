@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.InternalFrameAdapter;
@@ -102,6 +103,7 @@ public class NewMainFrame extends JFrame
         Escritorio = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         Institucion = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         TablaContado = new javax.swing.JTable();
@@ -144,7 +146,6 @@ public class NewMainFrame extends JFrame
 
         jLabel2.setText("Carpeta de destino:");
 
-        crearDialog.setBackground(new java.awt.Color(0, 204, 51));
         crearDialog.setText("Crear");
         crearDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +153,6 @@ public class NewMainFrame extends JFrame
             }
         });
 
-        cancelarDialog.setBackground(new java.awt.Color(255, 0, 0));
         cancelarDialog.setText("Cancelar");
         cancelarDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,20 +230,28 @@ public class NewMainFrame extends JFrame
 
         Institucion.setText("<html>Universidad de Las Palmas de Gran Canaria<br>Escuela de Ingeniería Informática<br>Diseño de Interfaces de Usuario<br>Nombres del Grupo</html>");
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/financegestoribex35/LOGO_ULPGC.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Institucion, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Institucion, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Institucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contado/Spot", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -370,7 +378,7 @@ public class NewMainFrame extends JFrame
                     .addComponent(comboBoxPut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(añadirPUT)
@@ -460,7 +468,7 @@ public class NewMainFrame extends JFrame
                     .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(añadirCALL)
@@ -526,7 +534,7 @@ public class NewMainFrame extends JFrame
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -575,7 +583,7 @@ public class NewMainFrame extends JFrame
                 .addContainerGap()
                 .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE))
+                .addComponent(jScrollPane5))
         );
 
         BarraMenu.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -646,10 +654,21 @@ public class NewMainFrame extends JFrame
         filechooser.setFileFilter(new CarFilter());
         
         int retorno = filechooser.showOpenDialog(Abrir);
-        
+        Boolean exists = false;
         if (retorno == JFileChooser.APPROVE_OPTION){
             File file = filechooser.getSelectedFile();
             Cartera cartera = CarterasGestor.cargarCartera(file);
+            for (int i = 0; i < carteraBoxCALL.getItemCount(); i++) {
+                System.out.println(carteraBoxCALL.getItemAt(i));
+                System.out.println(cartera.nombre);
+                if(carteraBoxCALL.getItemAt(i).equals(cartera.nombre)){
+                    System.out.println("Existeee");
+                    exists = true;
+                    break;
+                }
+            }
+            if(!exists){
+ 
             //añadir nueva ventana "carteraFrame" con esta cartera
             CarteraFrame carteraFrame = new CarteraFrame(cartera, opciones.Opciones);
             carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
@@ -683,6 +702,11 @@ public class NewMainFrame extends JFrame
             //añadirlo al JComboBox
             carteraBoxPUT.addItem(cartera.nombre);
             carteraBoxCALL.addItem(cartera.nombre);
+            
+            }else{
+                JOptionPane.showMessageDialog(internalPane,
+                "Guardado con éxito.");
+            }
         }
     }//GEN-LAST:event_AbrirActionPerformed
 
@@ -861,6 +885,7 @@ public class NewMainFrame extends JFrame
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
