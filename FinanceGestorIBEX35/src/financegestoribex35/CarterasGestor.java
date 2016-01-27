@@ -104,7 +104,6 @@ public class CarterasGestor {
     }
 
     public static boolean guardarComoCartera(Cartera cartera, String filePath){
-        System.out.println(filePath);
         String oldCarteraPath = cartera.carteraPath;
         cartera.nombre = filePath.substring(filePath.lastIndexOf('\\')+1);
         cartera.carteraPath =filePath+".car" ;

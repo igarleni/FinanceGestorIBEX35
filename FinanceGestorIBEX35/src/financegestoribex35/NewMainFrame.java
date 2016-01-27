@@ -664,10 +664,7 @@ public class NewMainFrame extends JFrame
             File file = filechooser.getSelectedFile();
             Cartera cartera = CarterasGestor.cargarCartera(file);
             for (int i = 0; i < carteraBoxCALL.getItemCount(); i++) {
-                System.out.println(carteraBoxCALL.getItemAt(i));
-                System.out.println(cartera.nombre);
                 if(carteraBoxCALL.getItemAt(i).equals(cartera.nombre)){
-                    System.out.println("Existeee");
                     exists = true;
                     break;
                 }
@@ -764,8 +761,46 @@ public class NewMainFrame extends JFrame
         } catch (IOException ex) {
             Logger.getLogger(NewMainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.print("" + carpeta + "\\"+ nombreCarteraNueva.getText() + ".car");
         cancelarDialogActionPerformed(evt);
+
+        
+        //Abrir la Cartera nueva 
+        Cartera cartera = CarterasGestor.cargarCartera(fichero);
+        CarteraFrame carteraFrame = new CarteraFrame(cartera, opciones.Opciones);
+            carteraFrame.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosing(InternalFrameEvent e){
+                    carteraBoxCALL.removeItem(((CarteraFrame)(e.getInternalFrame())).cartera.nombre);
+                    carteraBoxPUT.removeItem(((CarteraFrame)(e.getInternalFrame())).cartera.nombre);
+                    frameList.remove(e.getInternalFrame());
+                }
+            });
+            ///////////////////////////////TODO: AÑADIR AL ESCRITORIO (MAINFRAME)
+            
+            if(carteraFrame.openFrameCount == 1)
+                carteraFrame.setBounds(xOffset*carteraFrame.openFrameCount, yOffset*carteraFrame.openFrameCount, 620, 250); 
+            if(carteraFrame.openFrameCount == 2)
+                carteraFrame.setBounds(xOffset+620, yOffset, 620, 250); 
+            if(carteraFrame.openFrameCount == 3)
+                carteraFrame.setBounds(xOffset, yOffset+250, 620, 250); 
+            if(carteraFrame.openFrameCount == 4){
+                carteraFrame.setBounds(xOffset+620, yOffset+250, 620, 250); 
+                carteraFrame.openFrameCount = 0;
+                
+            }
+
+            carteraFrame.setVisible(true);
+            frameList.add(carteraFrame);
+            Escritorio.add(carteraFrame);
+            try {
+                carteraFrame.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {}
+            //añadirlo al JComboBox
+            carteraBoxPUT.addItem(cartera.nombre);
+            carteraBoxCALL.addItem(cartera.nombre);
+        
+        
+        
         }
     }//GEN-LAST:event_crearDialogActionPerformed
 
@@ -790,7 +825,6 @@ public class NewMainFrame extends JFrame
         if (filechooser.showDialog(null, "Seleccione carpeta de destino") == JFileChooser.APPROVE_OPTION) {
         carpeta = filechooser.getSelectedFile();
         explorarDialog.setText(""+carpeta);
-        System.out.println (carpeta.getName());
          }
     }//GEN-LAST:event_explorarDialogActionPerformed
 
