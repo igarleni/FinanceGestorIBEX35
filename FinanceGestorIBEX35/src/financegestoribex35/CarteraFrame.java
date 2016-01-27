@@ -85,6 +85,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         
         botonEliminarOp.addActionListener(new ActionListener() {
  
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 int seleccionado = jTable10.getSelectedRow();
@@ -106,6 +107,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         });      
         
         botonGuardar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 CarterasGestor.guardarCartera(cartera);
@@ -114,6 +116,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
             }); 
         
         botonGuardarComo.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e)
             {
             JFileChooser filechooser = new JFileChooser();
@@ -131,6 +134,7 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         }); 
         
         botonEliminarCar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 Object[] options = {"Sí",
@@ -197,7 +201,6 @@ public CarteraFrame(Cartera cartera, ArrayList<Opcion> opciones) {
         internalPane.setLayout(new FlowLayout());
         this.add(internalPane);
         actualizarTabla(opciones);
-        //Escritorio.add(new Cartera(), JLayeredPane.DEFAULT_LAYER);*/
     
     }
 

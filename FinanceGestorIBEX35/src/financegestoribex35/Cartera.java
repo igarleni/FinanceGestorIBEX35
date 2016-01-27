@@ -32,7 +32,8 @@ public class Cartera {
                     && opcione.Vencimiento.equals(opcion.Vencimiento)
                     && opcione.PrecioDeCompra.equals(opcion.PrecioDeCompra)
                     && opcione.Tipo.equals(opcion.Tipo)) {
-                opcione.Cantidad += opcion.Cantidad;
+                int nuevaCantidad = Tools.StringToInteger(opcione.Cantidad) + Tools.StringToInteger(opcion.Cantidad);
+                opcione.Cantidad = String.valueOf(nuevaCantidad);
                 return true;
             }
         }

@@ -83,7 +83,10 @@ public class CarterasGestor {
     public static boolean guardarCartera(Cartera cartera){
         PrintWriter f;
         try {
-            f = new PrintWriter(new File(cartera.carteraPath));
+            File file = new File(cartera.carteraPath);
+            file.delete();
+            file.createNewFile();
+            f = new PrintWriter(file);
             f.println(cartera.nombre);
             for (OpcionCartera opcionCartera : cartera.opciones) {
                 f.println(opcionCartera.Cantidad + " " +
