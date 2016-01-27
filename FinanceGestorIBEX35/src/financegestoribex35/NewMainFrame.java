@@ -72,7 +72,7 @@ public class NewMainFrame extends JFrame
             }
         });
         
-        comboBoxCall.addActionListener (new ActionListener () {
+        comboBoxCALL.addActionListener (new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
                 actualizaTableCALL();
@@ -119,7 +119,7 @@ public class NewMainFrame extends JFrame
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        comboBoxCall = new javax.swing.JComboBox();
+        comboBoxCALL = new javax.swing.JComboBox();
         jScrollPane8 = new javax.swing.JScrollPane();
         TablaOpcionesCALL = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -449,7 +449,7 @@ public class NewMainFrame extends JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(comboBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel8)
@@ -468,7 +468,7 @@ public class NewMainFrame extends JFrame
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxCall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxCALL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
@@ -844,7 +844,7 @@ public class NewMainFrame extends JFrame
             opcion.Ultimo = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 5);
             opcion.Volumen = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 6);
             opcion.Hora = (String)TablaOpcionesCALL.getValueAt(TablaOpcionesCALL.getSelectedRow(), 7);
-            opcion.Vencimiento = (String)carteraBoxCALL.getSelectedItem();
+            opcion.Vencimiento = (String)comboBoxCALL.getSelectedItem();
             
             CarteraFrame carteraFrame = buscarCarteraFrame(nombreCartera);
             if(carteraFrame != null)carteraFrame.addOpcion(opcion, udsCALL.getText());
@@ -903,7 +903,7 @@ public class NewMainFrame extends JFrame
     private javax.swing.JButton cancelarDialog;
     private javax.swing.JComboBox carteraBoxCALL;
     private javax.swing.JComboBox carteraBoxPUT;
-    private javax.swing.JComboBox comboBoxCall;
+    private javax.swing.JComboBox comboBoxCALL;
     private javax.swing.JComboBox comboBoxPut;
     private javax.swing.JDialog crearCarteraDialog;
     private javax.swing.JButton crearDialog;
@@ -1033,12 +1033,12 @@ private void CollectData(){
             if(opcion.Tipo.equals("CALL")){
                 if(!callVencimiento.contains(opcion.Vencimiento)){
                     callVencimiento.add(opcion.Vencimiento);
-                    comboBoxCall.addItem(opcion.Vencimiento);
+                    comboBoxCALL.addItem(opcion.Vencimiento);
                 }
             }
         }
         comboBoxPut.setSelectedIndex(0);
-        comboBoxCall.setSelectedIndex(0);
+        comboBoxCALL.setSelectedIndex(0);
         actualizaTableCALL();
         actualizaTablePUT();
         
@@ -1091,7 +1091,7 @@ public void actualizaTableCALL(){
         DefaultTableModel tablemodel = (DefaultTableModel)TablaOpcionesCALL.getModel();
         int nOptions = opciones.Opciones.size();
         int nCallRows = 0;
-        Object selectedItem = comboBoxCall.getSelectedItem();
+        Object selectedItem = comboBoxCALL.getSelectedItem();
         
         for(int i=0;i<nOptions;i++){
             Opcion opcion = opciones.Opciones.get(i);
